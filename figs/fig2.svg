@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="570" viewBox="0 0 680 570">
+<defs>    <!-- green arrow -->
+    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#76B900"/>
+    </marker>
+    <!-- red arrow -->
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <!-- blue arrow -->
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <!-- gray arrow -->
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+    <!-- big green arrow -->
+    <marker id="agb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#76B900"/>
+    </marker>
+    <!-- big blue arrow -->
+    <marker id="abb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#1976D2"/>
+    </marker></defs>
+<rect width="680" height="570" fill="#FAFAFA"/>
+<text x='340.0' y='32' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='16' fill='#1B5E20' text-anchor='middle' font-weight="bold">图2: GDR 软件栈分层架构</text>
+<rect x="80" y="60" width="420" height="70" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="2"/>
+<text x='120' y='87.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>层5 用户态</text>
+<rect x="170" y="68" width="320" height="54" rx="6" ry="6" fill="#FFFFFF" stroke="#FDD835" stroke-width="1"/>
+<text x='330.0' y='99.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>CUDA + libibverbs + libmlx5</text>
+<rect x="80" y="144" width="420" height="70" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2"/>
+<text x='120' y='171.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>层4 内核 RDMA</text>
+<rect x="170" y="152" width="320" height="54" rx="6" ry="6" fill="#FFFFFF" stroke="#64B5F6" stroke-width="1"/>
+<text x='330.0' y='183.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>ib_core (peer-memory) + mlx5_ib + mlx5_core</text>
+<rect x="80" y="228" width="420" height="70" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='120' y='255.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>层3 内核桥接</text>
+<rect x="170" y="236" width="320" height="54" rx="6" ry="6" fill="#FFFFFF" stroke="#4CAF50" stroke-width="1"/>
+<text x='330.0' y='267.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>nvidia-peermem.ko (peer memory client)</text>
+<rect x="80" y="312" width="420" height="70" rx="6" ry="6" fill="#ECEFF1" stroke="#78909C" stroke-width="2"/>
+<text x='120' y='339.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>层2 内核 GPU</text>
+<rect x="170" y="320" width="320" height="54" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1"/>
+<text x='330.0' y='351.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>nvidia.ko (BAR1 暴露, pin/unpin, DMA 映射)</text>
+<rect x="80" y="396" width="420" height="70" rx="6" ry="6" fill="#ECEFF1" stroke="#78909C" stroke-width="2"/>
+<text x='120' y='423.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>层1 硬件</text>
+<rect x="170" y="404" width="320" height="54" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1"/>
+<text x='330.0' y='435.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>ConnectX HCA  ←──PCIe P2P DMA──→  GPU BAR1</text>
+<line x1="55" y1="95" x2="55" y2="431" stroke="#1976D2" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#abb)"/>
+<text x='55' y='81' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#1976D2' text-anchor='middle' font-weight="bold">控制面</text>
+<line x1="53" y1="95.0" x2="80" y2="95.0" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="53" y1="179.0" x2="80" y2="179.0" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="53" y1="263.0" x2="80" y2="263.0" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="53" y1="347.0" x2="80" y2="347.0" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="53" y1="431.0" x2="80" y2="431.0" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="540" y1="95" x2="540" y2="431" stroke="#76B900" stroke-width="3.5" marker-end="url(#agb)"/>
+<text x='540' y='81' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#76B900' text-anchor='middle' font-weight="bold">数据面</text>
+<text x='600' y='95' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#76B900' text-anchor='middle'>Pin GPU 页</text>
+<text x='600' y='179' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#76B900' text-anchor='middle'>查询页表</text>
+<text x='600' y='263' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#76B900' text-anchor='middle'>DMA 映射</text>
+<rect x="30" y="465" width="280" height="98" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<rect x="40" y="471" width="14" height="14" rx="2" ry="2" fill="#FFFDE7" stroke="#FFFDE7" stroke-width="1"/>
+<text x='62' y='480' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>用户态层</text>
+<rect x="40" y="493" width="14" height="14" rx="2" ry="2" fill="#E3F2FD" stroke="#E3F2FD" stroke-width="1"/>
+<text x='62' y='502' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>内核态层</text>
+<rect x="40" y="515" width="14" height="14" rx="2" ry="2" fill="#ECEFF1" stroke="#ECEFF1" stroke-width="1"/>
+<text x='62' y='524' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>硬件层</text>
+<rect x="40" y="537" width="14" height="14" rx="2" ry="2" fill="#E8F5E9" stroke="#E8F5E9" stroke-width="1"/>
+<text x='62' y='546' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>桥接连通层</text>
+</svg>

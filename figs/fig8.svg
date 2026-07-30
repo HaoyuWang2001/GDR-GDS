@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
+<defs>    <!-- green arrow -->
+    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#76B900"/>
+    </marker>
+    <!-- red arrow -->
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <!-- blue arrow -->
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <!-- gray arrow -->
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+    <!-- big green arrow -->
+    <marker id="agb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#76B900"/>
+    </marker>
+    <!-- big blue arrow -->
+    <marker id="abb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#1976D2"/>
+    </marker></defs>
+<rect width="900" height="540" fill="#FAFAFA"/>
+<text x='450.0' y='30' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='16' fill='#1B5E20' text-anchor='middle' font-weight="bold">图8: 控制面 vs 数据面核心范式</text>
+<text x='20' y='60' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='13' fill='#1976D2' text-anchor='start' font-weight="bold">控制面 (Control Plane)</text>
+<rect x="30" y="80" width="160" height="48" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="2"/>
+<text x='110.0' y='100' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle' font-weight="bold">外部应用</text>
+<text x='110.0' y='116' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>(CPU 侧代码)</text>
+<line x1="190" y1="104.0" x2="245" y2="104.0" stroke="#1976D2" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#abb)"/>
+<rect x="255" y="80" width="190" height="48" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="2"/>
+<text x='350.0' y='100' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle' font-weight="bold">用户态驱动库</text>
+<text x='350.0' y='116' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>(libcufile / libibverbs)</text>
+<line x1="445" y1="104.0" x2="500" y2="104.0" stroke="#1976D2" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#abb)"/>
+<rect x="510" y="80" width="210" height="48" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2"/>
+<text x='615.0' y='100' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle' font-weight="bold">内核驱动</text>
+<text x='615.0' y='116' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>(nvidia.ko / nvidia-fs.ko)</text>
+<text x='110.0' y='144' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#1976D2' text-anchor='middle' font-weight="bold">pin / unpin</text>
+<text x='310.0' y='158' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#1976D2' text-anchor='middle'>callback 注册</text>
+<text x='410.0' y='158' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#1976D2' text-anchor='middle'>IOCTL 下发</text>
+<text x='615.0' y='144' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#1976D2' text-anchor='middle' font-weight="bold">DMA 寄存器编程</text>
+<rect x="30" y="174" width="840" height="26" rx="6" ry="6" fill="#E3F2FD" stroke="#42A5F5" stroke-width="1.5"/>
+<text x='450.0' y='191' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#1976D2' text-anchor='middle' font-weight="bold">控制面 = CPU 侧软件建立通路（建立映射 → 下发指令 → 处理回调）。数据 DMA 不走此路径。</text>
+<line x1="30" y1="219" x2="870" y2="219" stroke="#78909C" stroke-width="2" stroke-dasharray="8,4"/>
+<rect x="400.0" y="208" width="100" height="22" rx="6" ry="6" fill="#FAFAFA" stroke="#78909C" stroke-width="1"/>
+<text x='450.0' y='223' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#78909C' text-anchor='middle' font-weight="bold">CPU 边界</text>
+<text x='20' y='241' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='13' fill='#76B900' text-anchor='start' font-weight="bold">数据面 (Data Plane)</text>
+<text x='30' y='286.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#D32F2F' text-anchor='start' font-weight="bold">①</text>
+<rect x="55" y="263" width="130" height="38" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2"/>
+<text x='120' y='286.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle' font-weight="bold">GPU DMA 引擎</text>
+<line x1="185" y1="282.0" x2="240" y2="282.0" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="250" y="263" width="150" height="38" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2"/>
+<text x='325' y='286.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle' font-weight="bold">CPU Bounce Buffer</text>
+<line x1="400" y1="282.0" x2="450" y2="282.0" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="460" y="263" width="80" height="38" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2"/>
+<text x='500' y='286.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle' font-weight="bold">存储/网络</text>
+<text x='880' y='286.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#D32F2F' text-anchor='end'>需要 bounce buffer ✗</text>
+<text x='30' y='336.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#D32F2F' text-anchor='start' font-weight="bold">②</text>
+<rect x="55" y="313" width="130" height="38" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2"/>
+<text x='120' y='336.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle' font-weight="bold">CPU load/store</text>
+<line x1="185" y1="332.0" x2="240" y2="332.0" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="250" y="313" width="150" height="38" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2"/>
+<text x='325' y='336.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle' font-weight="bold">CPU Bounce Buffer</text>
+<line x1="400" y1="332.0" x2="450" y2="332.0" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="460" y="313" width="80" height="38" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2"/>
+<text x='500' y='336.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle' font-weight="bold">存储/网络</text>
+<text x='880' y='336.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#D32F2F' text-anchor='end'>需要 bounce buffer ✗</text>
+<text x='30' y='386.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#76B900' text-anchor='start' font-weight="bold">③</text>
+<rect x="55" y="363" width="140" height="38" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='125' y='377' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle' font-weight="bold">存储侧 DMA 引擎</text>
+<text x='125' y='393' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='9' fill='#76B900' text-anchor='middle'>(NVMe / NIC / RAID)</text>
+<line x1="195" y1="382.0" x2="525" y2="382.0" stroke="#76B900" stroke-width="4" marker-end="url(#agb)"/>
+<text x='360' y='374.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#76B900' text-anchor='middle' font-weight="bold">PCIe P2P DMA  直通，不经 CPU</text>
+<rect x="545" y="363" width="130" height="38" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='610' y='386.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#76B900' text-anchor='middle' font-weight="bold">GPU BAR1 显存</text>
+<text x='880' y='386.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#76B900' text-anchor='end' font-weight="bold">无需 bounce buffer ✓</text>
+<rect x="30" y="415" width="840" height="26" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1.5"/>
+<text x='450.0' y='432' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#76B900' text-anchor='middle' font-weight="bold">数据面 = 设备 DMA 引擎直接搬数据，不经 CPU 内存 → 这就是 GDR/GDS 的核心价值</text>
+<rect x="290.0" y="453" width="320" height="70" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<rect x="300.0" y="459" width="14" height="14" rx="2" ry="2" fill="#1976D2" stroke="#1976D2" stroke-width="1"/>
+<text x='322.0' y='468' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>控制面（CPU 侧，蓝虚线）</text>
+<rect x="300.0" y="479" width="14" height="14" rx="2" ry="2" fill="#D32F2F" stroke="#D32F2F" stroke-width="1"/>
+<text x='322.0' y='488' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>传统路径（需 bounce buffer）</text>
+<rect x="300.0" y="499" width="14" height="14" rx="2" ry="2" fill="#76B900" stroke="#76B900" stroke-width="1"/>
+<text x='322.0' y='508' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>GPUDirect 直连（零拷贝，绿色粗线）</text>
+</svg>

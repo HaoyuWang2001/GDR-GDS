@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="340" viewBox="0 0 960 340">
+<defs>    <!-- green arrow -->
+    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#76B900"/>
+    </marker>
+    <!-- red arrow -->
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <!-- blue arrow -->
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <!-- gray arrow -->
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+    <!-- big green arrow -->
+    <marker id="agb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#76B900"/>
+    </marker>
+    <!-- big blue arrow -->
+    <marker id="abb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#1976D2"/>
+    </marker></defs>
+<rect width="960" height="340" fill="#FAFAFA"/>
+<text x='480.0' y='30' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='16' fill='#1B5E20' text-anchor='middle' font-weight="bold">图7: GDR 全生命周期五阶段时序</text>
+<rect x="36.0" y="65" width="160" height="155" rx="6" ry="6" fill="#ECEFF1" stroke="#78909C" stroke-width="2.5"/>
+<text x='116.0' y='85' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">阶段0</text>
+<text x='116.0' y='101' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">启动就绪</text>
+<text x='116.0' y='115' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>BIOS BAR 分配</text>
+<text x='116.0' y='131' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>OS 加载 nvidia.ko</text>
+<text x='116.0' y='147' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>MLNX_OFED 栈</text>
+<text x='116.0' y='163' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>peermem 注册</text>
+<line x1="198.0" y1="142.5" x2="216.0" y2="142.5" stroke="#78909C" stroke-width="3" marker-end="url(#agr)"/>
+<rect x="218.0" y="65" width="160" height="155" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2.5"/>
+<text x='298.0' y='85' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">阶段1</text>
+<text x='298.0' y='101' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">内存注册</text>
+<text x='298.0' y='115' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>cudaMalloc</text>
+<text x='298.0' y='131' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>ibv_reg_mr</text>
+<text x='298.0' y='147' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>peermem 回调</text>
+<text x='298.0' y='163' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>nvidia.ko pin</text>
+<text x='298.0' y='179' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>mkey 表编程</text>
+<line x1="380.0" y1="142.5" x2="398.0" y2="142.5" stroke="#78909C" stroke-width="3" marker-end="url(#agr)"/>
+<rect x="400.0" y="65" width="160" height="155" rx="6" ry="6" fill="#E3F2FD" stroke="#42A5F5" stroke-width="2.5"/>
+<text x='480.0' y='85' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">阶段2</text>
+<text x='480.0' y='101' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">元数据交换</text>
+<text x='480.0' y='115' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>RC QP 建立</text>
+<text x='480.0' y='131' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>互换 rkey+VA</text>
+<text x='480.0' y='147' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>(纯控制面)</text>
+<line x1="562.0" y1="142.5" x2="580.0" y2="142.5" stroke="#78909C" stroke-width="3" marker-end="url(#agr)"/>
+<rect x="582.0" y="65" width="160" height="155" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2.5"/>
+<text x='662.0' y='85' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#76B900' text-anchor='middle' font-weight="bold">阶段3</text>
+<text x='662.0' y='101' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#76B900' text-anchor='middle' font-weight="bold">数据传输</text>
+<text x='662.0' y='115' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>ibv_post_send</text>
+<text x='662.0' y='131' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>HCA DMA 读/写 GPU BAR</text>
+<text x='662.0' y='147' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>CQ 完成</text>
+<text x='662.0' y='163' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>(数据面不经 CPU)</text>
+<line x1="744.0" y1="142.5" x2="762.0" y2="142.5" stroke="#78909C" stroke-width="3" marker-end="url(#agr)"/>
+<rect x="764.0" y="65" width="160" height="155" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2.5"/>
+<text x='844.0' y='85' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#D32F2F' text-anchor='middle' font-weight="bold">阶段4</text>
+<text x='844.0' y='101' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#D32F2F' text-anchor='middle' font-weight="bold">销毁回收</text>
+<text x='844.0' y='115' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle'>ibv_dereg_mr</text>
+<text x='844.0' y='131' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle'>nvidia.ko unpin</text>
+<text x='844.0' y='147' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle'>cudaFree</text>
+<text x='844.0' y='163' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle'>free_callback 兜底</text>
+<text x='320.0' y='242' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#78909C' text-anchor='middle' font-weight="bold">启动/回收 (灰/橙色)</text>
+<text x='480.0' y='242' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#1976D2' text-anchor='middle' font-weight="bold">控制面 (蓝色阶段 1-2)</text>
+<text x='660.0' y='242' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#76B900' text-anchor='middle' font-weight="bold">数据面 (绿色阶段 3)</text>
+<rect x="30" y="226" width="220" height="82" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<rect x="40" y="232" width="14" height="14" rx="2" ry="2" fill="#ECEFF1" stroke="#ECEFF1" stroke-width="1"/>
+<text x='62' y='241' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>启动 / 就绪</text>
+<rect x="40" y="250" width="14" height="14" rx="2" ry="2" fill="#E3F2FD" stroke="#E3F2FD" stroke-width="1"/>
+<text x='62' y='259' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>控制面</text>
+<rect x="40" y="268" width="14" height="14" rx="2" ry="2" fill="#E8F5E9" stroke="#E8F5E9" stroke-width="1"/>
+<text x='62' y='277' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>数据面</text>
+<rect x="40" y="286" width="14" height="14" rx="2" ry="2" fill="#FFEBEE" stroke="#FFEBEE" stroke-width="1"/>
+<text x='62' y='295' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>销毁 / 回收</text>
+</svg>

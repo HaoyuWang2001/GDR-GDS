@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="580" viewBox="0 0 820 580">
+<defs>    <!-- green arrow -->
+    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#76B900"/>
+    </marker>
+    <!-- red arrow -->
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <!-- blue arrow -->
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <!-- gray arrow -->
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+    <!-- big green arrow -->
+    <marker id="agb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#76B900"/>
+    </marker>
+    <!-- big blue arrow -->
+    <marker id="abb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#1976D2"/>
+    </marker></defs>
+<rect width="820" height="580" fill="#FAFAFA"/>
+<text x='410.0' y='32' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='16' fill='#1B5E20' text-anchor='middle' font-weight="bold">图4: 跨节点 GDR 数据面时序流程</text>
+<text x='180' y='68' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">节点 A (发起方)</text>
+<text x='620' y='68' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">节点 B (被动方)</text>
+<rect x="370" y="80" width="80" height="400" rx="6" ry="6" fill="#ECEFF1" stroke="#78909C" stroke-width="1.5"/>
+<text x='410.0' y='260.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#78909C' text-anchor='middle' font-weight="bold">网</text>
+<text x='410.0' y='280.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#78909C' text-anchor='middle' font-weight="bold">络</text>
+<rect x="30" y="90" width="310" height="50" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='185.0' y='119.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>1. 外部应用 ibv_post_send(RDMA_WRITE)</text>
+<rect x="30" y="160" width="310" height="50" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2"/>
+<text x='185.0' y='189.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>2. libibverbs → libmlx5</text>
+<rect x="30" y="230" width="310" height="50" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2"/>
+<text x='185.0' y='259.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>3. ConnectX HCA 查询 A 的 mkey 表</text>
+<rect x="30" y="300" width="310" height="50" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='185.0' y='329.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>4. HCA DMA: 读 GPU A BAR1 (源)</text>
+<rect x="30" y="370" width="310" height="50" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='185.0' y='399.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>5. CQ 产生 CQE → ibv_poll_cq 完成</text>
+<rect x="480" y="90" width="310" height="50" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='635.0' y='119.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>1. ConnectX HCA 收到报文</text>
+<rect x="480" y="160" width="310" height="50" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2"/>
+<text x='635.0' y='189.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>2. HCA 查询 B 的 mkey 表 (用 B 的 rkey)</text>
+<rect x="480" y="230" width="310" height="50" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='635.0' y='259.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>3. HCA DMA: 写 GPU B BAR1 (目的)</text>
+<rect x="480" y="300" width="310" height="50" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='635.0' y='329.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>4. B 端 CPU 不参与，被动完成</text>
+<line x1="340" y1="255" x2="370" y2="255" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="5,3"/>
+<line x1="450" y1="185" x2="480" y2="185" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="5,3"/>
+<line x1="410.0" y1="255" x2="410.0" y2="185" stroke="#1976D2" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ab)"/>
+<text x='460.0' y='220.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='9' fill='#1976D2' text-anchor='start'>控制面
+(蓝虚线)</text>
+<line x1="340" y1="325" x2="370" y2="325" stroke="#76B900" stroke-width="3" marker-end="url(#agb)"/>
+<line x1="450" y1="255" x2="480" y2="255" stroke="#76B900" stroke-width="3" marker-end="url(#agb)"/>
+<line x1="410.0" y1="325" x2="410.0" y2="255" stroke="#76B900" stroke-width="3" marker-end="url(#agb)"/>
+<text x='460.0' y='290.0' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='9' fill='#76B900' text-anchor='start'>数据面
+(绿粗线)</text>
+<text x='410.0' y='496' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>RDMA WRITE 报文 (InfiniBand / RoCE)</text>
+<rect x="30" y="475" width="280" height="76" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<rect x="40" y="481" width="14" height="14" rx="2" ry="2" fill="#E8F5E9" stroke="#E8F5E9" stroke-width="1"/>
+<text x='62' y='490' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>DMA 数据面 (实线绿框)</text>
+<rect x="40" y="503" width="14" height="14" rx="2" ry="2" fill="#E3F2FD" stroke="#E3F2FD" stroke-width="1"/>
+<text x='62' y='512' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>控制面 (蓝色虚线)</text>
+<rect x="40" y="525" width="14" height="14" rx="2" ry="2" fill="#ECEFF1" stroke="#ECEFF1" stroke-width="1"/>
+<text x='62' y='534' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>硬件 HCA / 网络</text>
+</svg>

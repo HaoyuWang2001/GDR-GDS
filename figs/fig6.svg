@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="445" viewBox="0 0 880 445">
+<defs>    <!-- green arrow -->
+    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#76B900"/>
+    </marker>
+    <!-- red arrow -->
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <!-- blue arrow -->
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <!-- gray arrow -->
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+    <!-- big green arrow -->
+    <marker id="agb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#76B900"/>
+    </marker>
+    <!-- big blue arrow -->
+    <marker id="abb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#1976D2"/>
+    </marker></defs>
+<rect width="880" height="445" fill="#FAFAFA"/>
+<text x='440.0' y='32' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='16' fill='#1B5E20' text-anchor='middle' font-weight="bold">图6: Phoenix 架构对比</text>
+<rect x="22" y="52" width="396" height="260" rx="8" ry="8" fill="#FFFFFF" stroke="#EF5350" stroke-width="3"/>
+<text x='220.0' y='76' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#D32F2F' text-anchor='middle' font-weight="bold">当前 GDS (有 Phony Buffer)</text>
+<text x='220.0' y='94' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#D32F2F' text-anchor='middle'>⚠ 软件开销高 / 额外资源消耗 / 部署复杂</text>
+<rect x="45" y="110" width="350" height="32" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="2"/>
+<text x='220.0' y='124' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>App</text>
+<line x1="220.0" y1="145" x2="220.0" y2="157" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="45" y="148" width="350" height="32" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="2"/>
+<text x='220.0' y='162' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>libcufile / cuFile API</text>
+<line x1="220.0" y1="183" x2="220.0" y2="195" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="45" y="186" width="350" height="32" rx="6" ry="6" fill="#FFEBEE" stroke="#EF5350" stroke-width="2"/>
+<text x='220.0' y='200' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#D32F2F' text-anchor='middle'>⚠ Phony Buffer</text>
+<text x='220.0' y='212' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>(host memory)</text>
+<line x1="220.0" y1="221" x2="220.0" y2="233" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="45" y="224" width="350" height="32" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2"/>
+<text x='220.0' y='238' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>VFS / 文件系统</text>
+<line x1="220.0" y1="259" x2="220.0" y2="271" stroke="#D32F2F" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="45" y="262" width="350" height="32" rx="6" ry="6" fill="#ECEFF1" stroke="#78909C" stroke-width="2"/>
+<text x='220.0' y='276' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>NVMe 存储</text>
+<rect x="452" y="52" width="396" height="260" rx="8" ry="8" fill="#FFFFFF" stroke="#4CAF50" stroke-width="3"/>
+<text x='650.0' y='76' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='14' fill='#76B900' text-anchor='middle' font-weight="bold">Phoenix (ZONE_DEVICE 无 Phony Buffer)</text>
+<text x='650.0' y='94' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#76B900' text-anchor='middle'>✓ 零 bounce buffer / 内核直接寻址 GPU 页</text>
+<rect x="475" y="110" width="350" height="32" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="2"/>
+<text x='650.0' y='124' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>App</text>
+<line x1="650.0" y1="145" x2="650.0" y2="157" stroke="#76B900" stroke-width="2" marker-end="url(#ag)"/>
+<rect x="475" y="148" width="350" height="32" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="2"/>
+<text x='650.0' y='162' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>libcufile / cuFile API</text>
+<line x1="650.0" y1="183" x2="650.0" y2="195" stroke="#76B900" stroke-width="2" marker-end="url(#ag)"/>
+<rect x="475" y="186" width="350" height="32" rx="6" ry="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+<text x='650.0' y='200' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>ZONE_DEVICE GPU 显存映射</text>
+<text x='650.0' y='212' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>(启动时注册)</text>
+<line x1="650.0" y1="221" x2="650.0" y2="233" stroke="#76B900" stroke-width="2" marker-end="url(#ag)"/>
+<rect x="475" y="224" width="350" height="32" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="2"/>
+<text x='650.0' y='238' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>VFS / 文件系统</text>
+<line x1="650.0" y1="259" x2="650.0" y2="271" stroke="#76B900" stroke-width="2" marker-end="url(#ag)"/>
+<rect x="475" y="262" width="350" height="32" rx="6" ry="6" fill="#ECEFF1" stroke="#78909C" stroke-width="2"/>
+<text x='650.0' y='276' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>NVMe 存储</text>
+<line x1="420" y1="230" x2="450" y2="230" stroke="#76B900" stroke-width="3" marker-end="url(#agb)"/>
+<text x='443.0' y='210' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#76B900' text-anchor='middle' font-weight="bold">消除 Phony Buffer</text>
+<rect x="120" y="345" width="640" height="36" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1"/>
+<text x='440' y='368' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle' font-weight="bold">性能数据:  软件开销 ↓70.3%  |  KV-cache 2.29×  |  Checkpoint 4.11×</text>
+<rect x="30" y="340" width="280" height="98" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<rect x="40" y="346" width="14" height="14" rx="2" ry="2" fill="#FFEBEE" stroke="#FFEBEE" stroke-width="1"/>
+<text x='62' y='355' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>Phony Buffer (问题)</text>
+<rect x="40" y="368" width="14" height="14" rx="2" ry="2" fill="#E8F5E9" stroke="#E8F5E9" stroke-width="1"/>
+<text x='62' y='377' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>ZONE_DEVICE (改进)</text>
+<rect x="40" y="390" width="14" height="14" rx="2" ry="2" fill="#E3F2FD" stroke="#E3F2FD" stroke-width="1"/>
+<text x='62' y='399' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>内核层</text>
+<rect x="40" y="412" width="14" height="14" rx="2" ry="2" fill="#ECEFF1" stroke="#ECEFF1" stroke-width="1"/>
+<text x='62' y='421' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>硬件层</text>
+</svg>

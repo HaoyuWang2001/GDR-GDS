@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="460" viewBox="0 0 880 460">
+<defs>    <!-- green arrow -->
+    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#76B900"/>
+    </marker>
+    <!-- red arrow -->
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <!-- blue arrow -->
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <!-- gray arrow -->
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+    <!-- big green arrow -->
+    <marker id="agb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#76B900"/>
+    </marker>
+    <!-- big blue arrow -->
+    <marker id="abb" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#1976D2"/>
+    </marker></defs>
+<rect width="880" height="460" fill="#FAFAFA"/>
+<text x='440.0' y='32' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='16' fill='#1B5E20' text-anchor='middle' font-weight="bold">图3: 第三方驱动接入 GDR 数据路径</text>
+<text x='70' y='68' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#FDD835' text-anchor='start' font-weight="bold">用户态</text>
+<text x='70' y='185' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#64B5F6' text-anchor='start' font-weight="bold">内核态</text>
+<text x='70' y='310' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#76B900' text-anchor='start' font-weight="bold">数据面</text>
+<rect x="65" y="69" width="780" height="62" rx="6" ry="6" fill="#FFFDE7" stroke="#FDD835" stroke-width="1.5"/>
+<rect x="130" y="75" width="160" height="42" rx="6" ry="6" fill="#FFFFFF" stroke="#FDD835" stroke-width="1.5"/>
+<text x='210' y='100' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle'>cudaMalloc(GPU VA)</text>
+<line x1="290" y1="96" x2="340" y2="96" stroke="#1976D2" stroke-width="2" marker-end="url(#ab)"/>
+<rect x="340" y="75" width="220" height="42" rx="6" ry="6" fill="#FFFFFF" stroke="#FDD835" stroke-width="1.5"/>
+<text x='450' y='90' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle'>通信库判定 →</text>
+<text x='450' y='105' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle' font-weight="bold">SYNC_MEMOPS</text>
+<line x1="560" y1="96" x2="610" y2="96" stroke="#1976D2" stroke-width="2" marker-end="url(#ab)"/>
+<rect x="610" y="75" width="180" height="42" rx="6" ry="6" fill="#FFFFFF" stroke="#FDD835" stroke-width="1.5"/>
+<text x='700' y='100' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle'>IOCTL(VA, size)</text>
+<rect x="65" y="186" width="780" height="84" rx="6" ry="6" fill="#E3F2FD" stroke="#64B5F6" stroke-width="1.5"/>
+<rect x="90" y="192" width="130" height="62" rx="6" ry="6" fill="#FFFFFF" stroke="#64B5F6" stroke-width="1.5"/>
+<text x='155' y='214' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle' font-weight="bold">自研驱动</text>
+<text x='155' y='234' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>(入口函数)</text>
+<line x1="220" y1="223" x2="270" y2="223" stroke="#1976D2" stroke-width="2" marker-end="url(#ab)"/>
+<rect x="270" y="192" width="210" height="62" rx="6" ry="6" fill="#FFFFFF" stroke="#4CAF50" stroke-width="1.5"/>
+<text x='375' y='210' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle' font-weight="bold">nvidia_p2p_get_pages()</text>
+<text x='375' y='232' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>→ page_table (GPU 物理/BAR 地址)</text>
+<line x1="480" y1="223" x2="530" y2="223" stroke="#1976D2" stroke-width="2" marker-end="url(#ab)"/>
+<rect x="530" y="192" width="200" height="62" rx="6" ry="6" fill="#FFFFFF" stroke="#4CAF50" stroke-width="1.5"/>
+<text x='630' y='207' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='middle' font-weight="bold">nvidia_p2p_dma_map_pages()</text>
+<text x='630' y='230' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='10' fill='#333333' text-anchor='middle'>→ scatter-gather 写入 DMA 寄存器</text>
+<line x1="730" y1="254" x2="780" y2="254" stroke="#1976D2" stroke-width="2" marker-end="url(#ab)"/>
+<rect x="65" y="299" width="780" height="52" rx="6" ry="6" fill="#ECEFF1" stroke="#78909C" stroke-width="1.5"/>
+<rect x="90" y="305" width="620" height="36" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<text x='400' y='328' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle'>自研 PCIe 设备 DMA 引擎  ←───PCIe P2P DMA───→  GPU BAR1 显存</text>
+<line x1="410" y1="117" x2="410" y2="192" stroke="#1976D2" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#abb)"/>
+<text x='430' y='160' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='9' fill='#1976D2' text-anchor='start'>控制面 (IOCTL)</text>
+<line x1="600" y1="276" x2="600" y2="305" stroke="#76B900" stroke-width="3" marker-end="url(#agb)"/>
+<text x='620' y='307' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='9' fill='#76B900' text-anchor='start'>数据面</text>
+<text x='440.0' y='395' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#1976D2' text-anchor='middle'>控制面 (蓝虚线): 用户 → 内核 → 寄存器编程</text>
+<text x='440.0' y='412' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#76B900' text-anchor='middle'>数据面 (绿实线): 设备 DMA 直读 / 写 GPU BAR</text>
+<rect x="650" y="370" width="210" height="64" rx="6" ry="6" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<rect x="660" y="376" width="14" height="14" rx="2" ry="2" fill="#FFFDE7" stroke="#FFFDE7" stroke-width="1"/>
+<text x='682' y='385' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>用户态</text>
+<rect x="660" y="394" width="14" height="14" rx="2" ry="2" fill="#E3F2FD" stroke="#E3F2FD" stroke-width="1"/>
+<text x='682' y='403' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>内核态</text>
+<rect x="660" y="412" width="14" height="14" rx="2" ry="2" fill="#ECEFF1" stroke="#ECEFF1" stroke-width="1"/>
+<text x='682' y='421' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>数据面硬件</text>
+</svg>
