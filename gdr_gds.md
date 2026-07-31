@@ -12,16 +12,17 @@
 - [二、GPUDirect 技术演进](#二gpudirect-技术演进)
 - [三、软件生态全景](#三软件生态全景)
 - [四、控制面 vs 数据面路径](#四控制面-vs-数据面路径)
-- [五、GPU 兼容性矩阵](#五gpu-兼容性矩阵)
-- [六、GPUDirect RDMA (GDR) 技术细节](#六gpudirect-rdma-gdr-技术细节)
-- [七、GDR 全生命周期实例：跨节点 GPU 读写](#七gdr-全生命周期实例跨节点-gpu-读写)
-- [八、GPUDirect Storage (GDS) 技术细节](#八gpudirect-storage-gds-技术细节)
-- [九、GDR vs GDS 对比与平台拓扑专题](#九gdr-vs-gds-对比与平台拓扑专题)
-- [十、典型应用场景](#十典型应用场景)
-- [十一、部署与启用要点](#十一部署与启用要点)
-- [十二、术语释义](#十二术语释义)
-- [十三、总结与参考链接](#十三总结与参考链接)
-- [十四、论文精讲：Phoenix](#十四论文精讲phoenix)
+- [五、组网形态](#五组网形态)
+- [六、GPU 兼容性矩阵](#六gpu-兼容性矩阵)
+- [七、GPUDirect RDMA (GDR) 技术细节](#七gpudirect-rdma-gdr-技术细节)
+- [八、GDR 全生命周期实例：跨节点 GPU 读写](#八gdr-全生命周期实例跨节点-gpu-读写)
+- [九、GPUDirect Storage (GDS) 技术细节](#九gpudirect-storage-gds-技术细节)
+- [十、GDR vs GDS 对比与平台拓扑专题](#十gdr-vs-gds-对比与平台拓扑专题)
+- [十一、典型应用场景](#十一典型应用场景)
+- [十二、部署与启用要点](#十二部署与启用要点)
+- [十三、术语释义](#十三术语释义)
+- [十四、总结与参考链接](#十四总结与参考链接)
+- [十五、论文精讲：Phoenix](#十五论文精讲phoenix)
 
 ---
 
@@ -353,7 +354,13 @@ GPU 虚拟地址由代理 CPU 系统内存地址代表。代理地址穿过 Linu
 
 ---
 
-## 五、GPU 兼容性矩阵
+## 五、组网形态
+
+组网形态见其他材料。
+
+---
+
+## 六、GPU 兼容性矩阵
 
 | 维度 | GDR | GDS |
 |------|-----|-----|
@@ -384,15 +391,15 @@ GPU 虚拟地址由代理 CPU 系统内存地址代表。代理地址穿过 Linu
 
 ---
 
-## 六、GPUDirect RDMA (GDR) 技术细节
+## 七、GPUDirect RDMA (GDR) 技术细节
 
-### 6.1 工作原理
+### 7.1 工作原理
 
 当建立 GDR 通信时，从 PCI Express 设备视角看，所有物理地址相同。在此物理地址空间内有线性窗口 **PCI BAR**。每个设备最多 6 个 BAR 寄存器（64bit BAR 占两个）。PCIe 设备对 peer 设备 BAR 地址发起 read/write，方式与访问 system memory 相同。
 
 传统 MMIO 映射经 CPU MMU；但 OS 缺乏跨驱动交换 MMIO 区的机制，故 **NVIDIA 内核驱动导出函数**完成地址翻译与映射。第三方驱动在 `get_user_pages()` 附近修改少量地址映射代码即可接入。
 
-### 6.2 标准 DMA Transfer（6 步）
+### 7.2 标准 DMA Transfer（6 步）
 
 1. 用户程序经通信库请求传输（virtual address + size）。
 2. 通信库确保对应内存区 ready，否则交内核驱动。
@@ -401,13 +408,13 @@ GPU 虚拟地址由代理 CPU 系统内存地址代表。代理地址穿过 Linu
 5. 通信库发起传输。
 6. 完成后清理 pin 资源（**unpin**）。
 
-### 6.3 GDR 在此基础上的变化
+### 7.3 GDR 在此基础上的变化
 
 新增两组件：用户态 CUDA 库 + NVIDIA 内核驱动。CPU/GPU 地址走两条路径：
 - CPU memory：`get_user_pages()` / `put_page()`
 - GPU memory：NVIDIA 内核驱动提供的 pin/unpin（`nvidia_p2p_get_pages` / `put_pages`）
 
-### 6.4 关键用户态 API
+### 7.4 关键用户态 API
 
 ```c
 // 启用同步语义（pin 前必须调用）
@@ -422,7 +429,7 @@ cuPointerGetAttribute(&buf_id, CU_POINTER_ATTRIBUTE_BUFFER_ID, pointer);
 cuPointerGetAttributes(numAttributes, attributes, data, ptr);
 ```
 
-### 6.5 Pin/Unpin 代码（64KB 对齐）
+### 7.5 Pin/Unpin 代码（64KB 对齐）
 
 ```c
 #define GPU_BOUND_SHIFT   16
@@ -450,7 +457,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 }
 ```
 
-### 6.6 设计要点
+### 7.6 设计要点
 
 - **Lazy Unpinning（懒卸载）**：pin GPU 显存到 BAR 是昂贵操作（毫秒级）。传输完成后保持 pinned，LRU 在总 size 达阈值或 BAR 耗尽时才 unpin。
 - **Registration Cache（注册缓存）**：通信中间件常用 pin-down cache；64KB 边界对齐更省资源（BAR 以 64KB page 映射，同 64KB 边界两区返回同一 BAR mapping）。失效检测两选项：① 拦截所有 CUDA alloc/dealloc API（推荐）；② Buffer ID tag check（引入额外 CUDA 调用，**不推荐用于延迟敏感**）。
@@ -465,7 +472,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 
 ---
 
-## 七、GDR 全生命周期实例：跨节点 GPU 读写
+## 八、GDR 全生命周期实例：跨节点 GPU 读写
 
 本节以 GDR 为实例，串联从 OS 启动、BAR1 就绪，到用户态分配 GPU 显存并注册 RDMA 内存区域、跨节点 RDMA WRITE/READ 数据传输，再到解注册与回收的**完整生命周期**。每一步操作标注发起方（`【角色】`），指明该操作来源于 BIOS/OS 内核、`nvidia.ko`、MLNX_OFED（内核态或用户态）、`nvidia-peermem.ko`、外部用户应用还是 HCA 硬件。术语在首次出现处行内简释。
 
@@ -670,9 +677,9 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 
 ---
 
-## 八、GPUDirect Storage (GDS) 技术细节
+## 九、GPUDirect Storage (GDS) 技术细节
 
-### 8.1 收益
+### 9.1 收益
 
 - **带宽**：GPU/NIC/存储在同一 PCIe switch 下时带宽更高；GDS 经直连路径（绿）而非经 CPU bounce（红），带宽可加性叠加。
 - **延迟**：直连仅一次拷贝，源→目标；bounce 两次。CPU 抖动消除。
@@ -683,12 +690,12 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 - **Migratable Memory**：CUDA 12.2 起 GDS 支持任意分配类型 buffer（含 CPU↔GPU 迁移内存，HMM/Grace-Hopper）。
 - **Asynchrony**：CUDA 12.2 加 stream 参数，异步提交与执行。
 
-### 8.2 软件架构
+### 9.2 软件架构
 
 ![图5：GDS 软件栈分层架构与 Workflow 1 调用栈](figs/fig5.svg)
 
 
-### 8.3 cuFile API 全家桶
+### 9.3 cuFile API 全家桶
 
 | 类别 | API |
 |------|-----|
@@ -697,7 +704,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 | Stream 异步 | `cuFile{Read,Write}Async`、`cuFileStreamRegister/Deregister` |
 | Batch | `cuFileBatchIO{SetUp,Submit,GetStatus,Cancel,Destroy}` |
 
-### 8.4 POSIX vs cuFile 代码对比
+### 9.4 POSIX vs cuFile 代码对比
 
 POSIX（需 bounce buffer + cudaMemcpy）：
 
@@ -727,7 +734,7 @@ cuFileRead(&fh, gpumem_buf, buf_size, ...);          // 存储→GPU 直达
 doit<<<gpumem_buf, ...>>>();
 ```
 
-### 8.5 性能优化
+### 9.5 性能优化
 
 - **Path Selection（路径选择）**：多路径可用时选最优（DGX-2 有 PCIe 经 CPU 与 NVLink 两路径）。
 - **Staging（中间缓冲）**：单段不可达的路径分多段，用 GPU A staging buffer + NVLink 到 GPU B。
@@ -753,12 +760,12 @@ doit<<<gpumem_buf, ...>>>();
 
 > NIC 与 GPU 在同一 PCIe tree 时，即使启用也不走 dynamic routing（直接 P2P/兼容模式）。
 
-### 8.6 兼容模式与 O_DIRECT
+### 9.6 兼容模式与 O_DIRECT
 
 - 直传需 `O_DIRECT` 打开文件，否则内容缓冲在 CPU 系统内存。
 - **CUDA 12.2（GDS 1.7.x）起**：即使非 `O_DIRECT`，对页对齐 buffer（aligned size 与 offset）也走 GDS-O_DIRECT 路径。
 
-### 8.7 cufile.json 配置示例
+### 9.7 cufile.json 配置示例
 
 ```json
 {
@@ -787,7 +794,7 @@ doit<<<gpumem_buf, ...>>>();
 
 地址列表优先级（高→低）：per-mount > per-file-system > 全局。
 
-### 8.8 校验与监控
+### 9.8 校验与监控
 
 ```bash
 # 验证 dynamic routing 配置
@@ -807,9 +814,9 @@ $ cat /proc/kallsyms | grep -i p2pdma_pgmap_ops
 
 ---
 
-## 九、GDR vs GDS 对比与平台拓扑专题
+## 十、GDR vs GDS 对比与平台拓扑专题
 
-### 9.1 GDR vs GDS 总览对比
+### 10.1 GDR vs GDS 总览对比
 
 | 维度 | GDR (RDMA) | GDS (Storage) |
 |------|------------|---------------|
@@ -823,7 +830,7 @@ $ cat /proc/kallsyms | grep -i p2pdma_pgmap_ops
 | **依赖** | MLNX_OFED、ConnectX-3+ | kernel 4.15+、MLNX_OFED 5.1+、ConnectX-5+ |
 | **特殊形态** | — | Async (GDA-ST/GT) 排入 stream/graph |
 
-### 9.2 平台拓扑专题
+### 10.2 平台拓扑专题
 
 #### DGX-2 多路径
 
@@ -851,7 +858,7 @@ GDS P2P 模式不支持 migratable memory（`cudaMallocManaged`/malloc/stack）�
 
 ---
 
-## 十、典型应用场景
+## 十一、典型应用场景
 
 | 场景 | 价值 |
 |------|------|
@@ -867,9 +874,9 @@ GDS P2P 模式不支持 migratable memory（`cudaMallocManaged`/malloc/stack）�
 
 ---
 
-## 十一、部署与启用要点
+## 十二、部署与启用要点
 
-### 11.1 GDR 部署
+### 12.1 GDR 部署
 
 ```bash
 # 安装 MLNX_OFED（带 RDMA peer memory 支持）
@@ -892,7 +899,7 @@ make module
 KBUILD_EXTRA_SYMBOLS := <path>/Module.symvers
 ```
 
-### 11.2 GDS 部署
+### 12.2 GDS 部署
 
 ```bash
 # 安装 CUDA Toolkit（含 libcufile.so / libcufile.h）
@@ -908,11 +915,11 @@ KBUILD_EXTRA_SYMBOLS := <path>/Module.symvers
 nvidia-smi -q | grep -A3 "BAR1 Memory Usage"
 ```
 
-### 11.3 容器化
+### 12.3 容器化
 
 容器只含用户态代码，依赖宿主机内核态组件（`nvidia-fs.ko`/`nvidia-peermem`）。缺驱动/配置时启用兼容模式保持功能。参考 [NVIDIA/MagnumIO](https://github.com/NVIDIA/MagnumIO/tree/main/gds/docker) 的 GDS in container 示例。
 
-### 11.4 已知坑
+### 12.4 已知坑
 
 - **`nvidia-peermem` 无自动加载服务**（CUDA 11.4 known issue），需手动 `modprobe`。
 - **`nv-p2p` symbol 冲突**：使用前应卸载 NVIDIA display driver。
@@ -922,7 +929,7 @@ nvidia-smi -q | grep -A3 "BAR1 Memory Usage"
 
 ---
 
-## 十二、术语释义
+## 十三、术语释义
 
 本文涉及的专有名词与缩略词按类别释义。若为英文缩写，则括号内标注全称；若有多种叫法，则以「又称：xxx」注明。
 
@@ -1032,7 +1039,7 @@ nvidia-smi -q | grep -A3 "BAR1 Memory Usage"
 
 ---
 
-## 十三、总结与参考链接
+## 十四、总结与参考链接
 
 ### 核心要点
 
@@ -1065,7 +1072,7 @@ nvidia-smi -q | grep -A3 "BAR1 Memory Usage"
 
 ---
 
-## 十四、论文精讲：Phoenix
+## 十五、论文精讲：Phoenix
 
 **论文标题**：Phoenix: A Refactored I/O Stack for GPU Direct Storage without Phony Buffers
 **作者**：Jianqin Yan, Shi Qiu, Yina Lv 等 11 人（清华大学）

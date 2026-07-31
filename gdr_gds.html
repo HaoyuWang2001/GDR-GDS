@@ -284,16 +284,17 @@ tbody tr:last-child td { border-bottom: none; }
 <li><a href="#二、gpudirect-技术演进">二、GPUDirect 技术演进</a></li>
 <li><a href="#三、软件生态全景">三、软件生态全景</a></li>
 <li><a href="#四、控制面-vs-数据面路径">四、控制面 vs 数据面路径</a></li>
-<li><a href="#五、gpu-兼容性矩阵">五、GPU 兼容性矩阵</a></li>
-<li><a href="#六、gpudirect-rdma-gdr-技术细节">六、GPUDirect RDMA (GDR) 技术细节</a></li>
-<li><a href="#七、gdr-全生命周期实例跨节点-gpu-读写">七、GDR 全生命周期实例：跨节点 GPU 读写</a></li>
-<li><a href="#八、gpudirect-storage-gds-技术细节">八、GPUDirect Storage (GDS) 技术细节</a></li>
-<li><a href="#九、gdr-vs-gds-对比与平台拓扑专题">九、GDR vs GDS 对比与平台拓扑专题</a></li>
-<li><a href="#十、典型应用场景">十、典型应用场景</a></li>
-<li><a href="#十一、部署与启用要点">十一、部署与启用要点</a></li>
-<li><a href="#十二、术语释义">十二、术语释义</a></li>
-<li><a href="#十三、总结与参考链接">十三、总结与参考链接</a></li>
-<li><a href="#十四、论文精讲phoenix">十四、论文精讲：Phoenix</a></li>
+<li><a href="#五、组网形态">五、组网形态</a></li>
+<li><a href="#六、gpu-兼容性矩阵">六、GPU 兼容性矩阵</a></li>
+<li><a href="#七、gpudirect-rdma-gdr-技术细节">七、GPUDirect RDMA (GDR) 技术细节</a></li>
+<li><a href="#八、gdr-全生命周期实例跨节点-gpu-读写">八、GDR 全生命周期实例：跨节点 GPU 读写</a></li>
+<li><a href="#九、gpudirect-storage-gds-技术细节">九、GPUDirect Storage (GDS) 技术细节</a></li>
+<li><a href="#十、gdr-vs-gds-对比与平台拓扑专题">十、GDR vs GDS 对比与平台拓扑专题</a></li>
+<li><a href="#十一、典型应用场景">十一、典型应用场景</a></li>
+<li><a href="#十二、部署与启用要点">十二、部署与启用要点</a></li>
+<li><a href="#十三、术语释义">十三、术语释义</a></li>
+<li><a href="#十四、总结与参考链接">十四、总结与参考链接</a></li>
+<li><a href="#十五、论文精讲phoenix">十五、论文精讲：Phoenix</a></li>
   </ul>
 </nav>
 
@@ -307,16 +308,17 @@ tbody tr:last-child td { border-bottom: none; }
 <li><a href="#二gpudirect-技术演进">二、GPUDirect 技术演进</a></li>
 <li><a href="#三软件生态全景">三、软件生态全景</a></li>
 <li><a href="#四控制面-vs-数据面路径">四、控制面 vs 数据面路径</a></li>
-<li><a href="#五gpu-兼容性矩阵">五、GPU 兼容性矩阵</a></li>
-<li><a href="#六gpudirect-rdma-gdr-技术细节">六、GPUDirect RDMA (GDR) 技术细节</a></li>
-<li><a href="#七gdr-全生命周期实例跨节点-gpu-读写">七、GDR 全生命周期实例：跨节点 GPU 读写</a></li>
-<li><a href="#八gpudirect-storage-gds-技术细节">八、GPUDirect Storage (GDS) 技术细节</a></li>
-<li><a href="#九gdr-vs-gds-对比与平台拓扑专题">九、GDR vs GDS 对比与平台拓扑专题</a></li>
-<li><a href="#十典型应用场景">十、典型应用场景</a></li>
-<li><a href="#十一部署与启用要点">十一、部署与启用要点</a></li>
-<li><a href="#十二术语释义">十二、术语释义</a></li>
-<li><a href="#十三总结与参考链接">十三、总结与参考链接</a></li>
-<li><a href="#十四论文精讲phoenix">十四、论文精讲：Phoenix</a></li>
+<li><a href="#五组网形态">五、组网形态</a></li>
+<li><a href="#六gpu-兼容性矩阵">六、GPU 兼容性矩阵</a></li>
+<li><a href="#七gpudirect-rdma-gdr-技术细节">七、GPUDirect RDMA (GDR) 技术细节</a></li>
+<li><a href="#八gdr-全生命周期实例跨节点-gpu-读写">八、GDR 全生命周期实例：跨节点 GPU 读写</a></li>
+<li><a href="#九gpudirect-storage-gds-技术细节">九、GPUDirect Storage (GDS) 技术细节</a></li>
+<li><a href="#十gdr-vs-gds-对比与平台拓扑专题">十、GDR vs GDS 对比与平台拓扑专题</a></li>
+<li><a href="#十一典型应用场景">十一、典型应用场景</a></li>
+<li><a href="#十二部署与启用要点">十二、部署与启用要点</a></li>
+<li><a href="#十三术语释义">十三、术语释义</a></li>
+<li><a href="#十四总结与参考链接">十四、总结与参考链接</a></li>
+<li><a href="#十五论文精讲phoenix">十五、论文精讲：Phoenix</a></li>
 </ul>
 <hr>
 <h2 id="一、背景与动机">一、背景与动机</h2>
@@ -576,7 +578,7 @@ void nvidia_p2p_free_page_table(struct nvidia_p2p_page_table *pt);  // 在 callb
 <p>它的角色是双向桥接：</p>
 <ul>
 <li><strong>向 RDMA 子系统注册</strong>：以 peer memory client 身份向 InfiniBand Core 登记，使 RDMA 应用在注册一块 GPU buffer（获取 rkey/lkey）时，IB Core 会回调 <code>nvidia-peermem</code> 去"锁定并取址"。</li>
-<li>**向 <code>nvidia.ko</code> 求助**：收到回调后，它调用 <code>nvidia_p2p_get_pages()</code> 拿到 GPU 页的物理/总线地址，回填给 HCA（Host Channel Adapter，如 ConnectX）驱动；HCA 据此把 GPU BAR 地址编入其 scatter-gather 列表，随后由网卡 DMA 引擎直接读写 GPU 显存。</li>
+<li><strong>向 <code>nvidia.ko</code> 求助</strong>：收到回调后，它调用 <code>nvidia_p2p_get_pages()</code> 拿到 GPU 页的物理/总线地址，回填给 HCA（Host Channel Adapter，如 ConnectX）驱动；HCA 据此把 GPU BAR 地址编入其 scatter-gather 列表，随后由网卡 DMA 引擎直接读写 GPU 显存。</li>
 </ul>
 <p>由此，RDMA 应用的"内存注册"语义被无缝扩展到 GPU 显存上——应用代码几乎无感，底层却走了 PCIe 直连而非 bounce buffer。该模块支持 <strong>NVIDIA ConnectX-3 VPI 及更新</strong>适配器，同时兼容 InfiniBand 与 RoCE（RDMA over Converged Ethernet）。</p>
 <blockquote>与早期社区维护的离线模块 <code>nv_peer_mem</code> 不同，<code>nvidia-peermem</code> 由 NVIDIA 官方随驱动维护、与驱动版本严格匹配，是当前推荐路径。<code>nv_peer_mem</code> 自 GPU 驱动 R470 分支起已 deprecated，仅作历史/兼容背景了解，新部署不应再采用。</blockquote>
@@ -673,7 +675,7 @@ void nvidia_p2p_free_page_table(struct nvidia_p2p_page_table *pt);  // 在 callb
 </ol>
 <p><strong>内核态要做的事</strong>：</p>
 <ol>
-<li>**链接 <code>nvidia.ko</code> 符号**：自研内核模块编译时须链接 <code>nvidia.ko</code> 的 <code>Module.symvers</code>（<code>KBUILD_EXTRA_SYMBOLS</code>），否则无法调用 <code>nvidia_p2p_*</code> 导出符号。</li>
+<li><strong>链接 <code>nvidia.ko</code> 符号</strong>：自研内核模块编译时须链接 <code>nvidia.ko</code> 的 <code>Module.symvers</code>（<code>KBUILD_EXTRA_SYMBOLS</code>），否则无法调用 <code>nvidia_p2p_*</code> 导出符号。</li>
 <li><strong>64KB 对齐锁定</strong>：<code>nvidia.ko</code> 要求地址与长度按 64KB 边界对齐后再调用 <code>nvidia_p2p_get_pages()</code>，返回 <code>nvidia_p2p_page_table</code>（GPU 物理页表）。</li>
 <li><strong>（按需）DMA 映射</strong>：若平台 I/O 地址 ≠ CPU 物理地址，调用 <code>nvidia_p2p_dma_map_pages()</code> 把 GPU 页映射进自研设备的 I/O 地址空间，得到设备可用的总线地址。</li>
 <li><strong>编程 DMA 引擎</strong>：把得到的物理/总线地址组织成 scatter-gather 列表，写入自研设备 DMA 引擎寄存器——此后设备经 PCIe 直接读写 GPU BAR，数据面完全不经 CPU。</li>
@@ -682,7 +684,7 @@ void nvidia_p2p_free_page_table(struct nvidia_p2p_page_table *pt);  // 在 callb
 </ol>
 <p><strong>接入方式的选择</strong>：</p>
 <ul>
-<li>若自研设备就是 Mellanox/NVIDIA ConnectX 网卡，**直接复用 <code>nvidia-peermem</code> + MLNX_OFED**，无需自研内核驱动，上层用 libibverbs/NCCL 即可。</li>
+<li>若自研设备就是 Mellanox/NVIDIA ConnectX 网卡，<strong>直接复用 <code>nvidia-peermem</code> + MLNX_OFED</strong>，无需自研内核驱动，上层用 libibverbs/NCCL 即可。</li>
 <li>若自研设备是<strong>非 Mellanox 的 RDMA/PCIe 设备</strong>（自研通信卡、采集卡、自研存储 HCA），则须<strong>编写自研内核驱动</strong>，按上述步骤直接调用 <code>nvidia.ko</code> 导出的 <code>nvidia_p2p_*</code> 符号；同时用户态通信库按上述步骤配合。这是让自研通信系统经 PCIe 直访 GPU 显存的标准路径。</li>
 <li><strong>演进提示</strong>：CUDA 13.0 起，<code>nv-p2p</code>（<code>nvidia_p2p_*</code>）在 Blackwell SoC 进入弃用，长期应迁移到 Linux 上游的 <code>pin_user_pages</code> + <code>dma_map_sgtable</code> 标准接口；自研驱动在设计时应预留这条迁移路径。</li>
 </ul>
@@ -697,31 +699,31 @@ void nvidia_p2p_free_page_table(struct nvidia_p2p_page_table *pt);  // 在 callb
 </tr></thead>
 <tbody>
 <tr>
-<td>**<code>libcufile.so</code>**</td>
+<td><strong><code>libcufile.so</code></strong></td>
 <td>NVIDIA</td>
 <td>用户态闭源库</td>
 <td>cuFile API 实现：Driver / 同步 IO / Batch / Stream async / Buf</td>
 </tr>
 <tr>
-<td>**<code>libcufile_static.a</code>**</td>
+<td><strong><code>libcufile_static.a</code></strong></td>
 <td>NVIDIA</td>
 <td>静态库</td>
 <td>静态链接场景</td>
 </tr>
 <tr>
-<td>**<code>libcufile_rdma.so</code>**</td>
+<td><strong><code>libcufile_rdma.so</code></strong></td>
 <td>NVIDIA</td>
 <td>用户态库</td>
 <td>Workflow 2 中获取 RDMA info（keys, GID, LID）给 libcufile</td>
 </tr>
 <tr>
-<td>**<code>nvidia-fs.ko</code>**</td>
+<td><strong><code>nvidia-fs.ko</code></strong></td>
 <td>NVIDIA</td>
 <td>内核驱动（<strong>GPLv2</strong>, DKMS）</td>
 <td>处理 cuFile IOCTL；实现 DMA callback 翻译 GPU VA→物理地址；管理 DMA 机制与缓冲。<strong>CUDA 12.8 起 NVMe 不再需要它</strong></td>
 </tr>
 <tr>
-<td>**<code>libcuda.so</code>**</td>
+<td><strong><code>libcuda.so</code></strong></td>
 <td>NVIDIA</td>
 <td>CUDA 用户态驱动</td>
 <td>stream 子集 API 的运行时依赖</td>
@@ -921,12 +923,12 @@ int nvidia_p2p_dma_map_pages(struct pci_dev *peer,
 <li>死锁风险：NVIDIA 驱动持锁后调 callback，第三方也持锁 → 需谨慎设计。</li>
 </ul>
 <h3 id="43-gds-workflow-1经-nvidia-fsko-的-7-步调用栈">4.3 GDS Workflow 1（经 <code>nvidia-fs.ko</code> 的 7 步调用栈）</h3>
-<p>GPU 虚拟地址由代理 CPU 系统内存地址代表。代理地址穿过 Linux IO 栈，被转换为设备特定 DMA bus 地址。**下列步骤在标准 <code>pread</code>/<code>pwrite</code> 中均不发生。**</p>
+<p>GPU 虚拟地址由代理 CPU 系统内存地址代表。代理地址穿过 Linux IO 栈，被转换为设备特定 DMA bus 地址。<strong>下列步骤在标准 <code>pread</code>/<code>pwrite</code> 中均不发生。</strong></p>
 <ol>
 <li><strong>App → libcufile.so</strong>：调用 <code>cuFileRead</code>/<code>cuFileWrite</code>；alignment 在此层处理（buffer 无需 4KB/512KB 对齐）。</li>
 <li><strong>libcufile 决策</strong>：基于 FS、配置、硬件支持，选兼容模式或 GDS，及是否用内部 GPU buffer。</li>
 <li><strong>libcufile.so → nvidia-fs.ko</strong>：发 IOCTL；按需与 <code>libcuda.so</code> 交互（stream 子集）。</li>
-<li><strong>nvidia-fs.ko → VFS</strong>：遍历必要 IO 操作，把完成回调放入 <code>kiocb->common.ki_complete</code>（值 <code>nvfs_io_complete</code>，步骤 7 用）；调用进入 VFS，再到下层（ext4/XFS/NVMe 或厂商 FS）。</li>
+<li><strong>nvidia-fs.ko → VFS</strong>：遍历必要 IO 操作，把完成回调放入 <code>kiocb-&gt;common.ki_complete</code>（值 <code>nvfs_io_complete</code>，步骤 7 用）；调用进入 VFS，再到下层（ext4/XFS/NVMe 或厂商 FS）。</li>
 <li><strong>Storage kernel drivers → nvidia-fs.ko</strong>：callback API 经 <code>cuFileDriverOpen</code> 注册。GPU 内存地址在独立 map（Linux page map 之外），故用 <code>nvidia-fs.ko</code> API：</li>
 </ol>
 <ul>
@@ -959,7 +961,10 @@ int nvidia_p2p_dma_map_pages(struct pci_dev *peer,
 <li>最优路径需中间 staging（如用 NVLink）</li>
 </ul>
 <hr>
-<h2 id="五、gpu-兼容性矩阵">五、GPU 兼容性矩阵</h2>
+<h2 id="五、组网形态">五、组网形态</h2>
+<p>组网形态见其他材料。</p>
+<hr>
+<h2 id="六、gpu-兼容性矩阵">六、GPU 兼容性矩阵</h2>
 <div class="table-wrapper"><table>
 <thead><tr>
 <th>维度</th>
@@ -1072,11 +1077,11 @@ int nvidia_p2p_dma_map_pages(struct pci_dev *peer,
 </tbody></table></div>
 <blockquote>- <strong>Grace-Hopper</strong>：GDS P2P 模式不支持 migratable memory（<code>cudaMallocManaged</code>/系统分配），走兼容路径（内部 GPU/CPU bounce buffer）支持 IO。<br>- <strong>Large BAR1</strong>：部分 Tesla 级 GPU 启用 large BAR（16GB+），旧主板须启用特殊 BIOS 功能以避免 POST 阶段卡住。</blockquote>
 <hr>
-<h2 id="六、gpudirect-rdma-gdr-技术细节">六、GPUDirect RDMA (GDR) 技术细节</h2>
-<h3 id="61-工作原理">6.1 工作原理</h3>
+<h2 id="七、gpudirect-rdma-gdr-技术细节">七、GPUDirect RDMA (GDR) 技术细节</h2>
+<h3 id="71-工作原理">7.1 工作原理</h3>
 <p>当建立 GDR 通信时，从 PCI Express 设备视角看，所有物理地址相同。在此物理地址空间内有线性窗口 <strong>PCI BAR</strong>。每个设备最多 6 个 BAR 寄存器（64bit BAR 占两个）。PCIe 设备对 peer 设备 BAR 地址发起 read/write，方式与访问 system memory 相同。</p>
 <p>传统 MMIO 映射经 CPU MMU；但 OS 缺乏跨驱动交换 MMIO 区的机制，故 <strong>NVIDIA 内核驱动导出函数</strong>完成地址翻译与映射。第三方驱动在 <code>get_user_pages()</code> 附近修改少量地址映射代码即可接入。</p>
-<h3 id="62-标准-dma-transfer6-步">6.2 标准 DMA Transfer（6 步）</h3>
+<h3 id="72-标准-dma-transfer6-步">7.2 标准 DMA Transfer（6 步）</h3>
 <ol>
 <li>用户程序经通信库请求传输（virtual address + size）。</li>
 <li>通信库确保对应内存区 ready，否则交内核驱动。</li>
@@ -1085,13 +1090,13 @@ int nvidia_p2p_dma_map_pages(struct pci_dev *peer,
 <li>通信库发起传输。</li>
 <li>完成后清理 pin 资源（<strong>unpin</strong>）。</li>
 </ol>
-<h3 id="63-gdr-在此基础上的变化">6.3 GDR 在此基础上的变化</h3>
+<h3 id="73-gdr-在此基础上的变化">7.3 GDR 在此基础上的变化</h3>
 <p>新增两组件：用户态 CUDA 库 + NVIDIA 内核驱动。CPU/GPU 地址走两条路径：</p>
 <ul>
 <li>CPU memory：<code>get_user_pages()</code> / <code>put_page()</code></li>
 <li>GPU memory：NVIDIA 内核驱动提供的 pin/unpin（<code>nvidia_p2p_get_pages</code> / <code>put_pages</code>）</li>
 </ul>
-<h3 id="64-关键用户态-api">6.4 关键用户态 API</h3>
+<h3 id="74-关键用户态-api">7.4 关键用户态 API</h3>
 <pre><code class="language-c">// 启用同步语义（pin 前必须调用）
 unsigned int flag = 1;
 cuPointerSetAttribute(&amp;flag, CU_POINTER_ATTRIBUTE_SYNC_MEMOPS, pointer);
@@ -1102,7 +1107,7 @@ cuPointerGetAttribute(&amp;buf_id, CU_POINTER_ATTRIBUTE_BUFFER_ID, pointer);
 
 // 批量查询
 cuPointerGetAttributes(numAttributes, attributes, data, ptr);</code></pre>
-<h3 id="65-pinunpin-代码64kb-对齐">6.5 Pin/Unpin 代码（64KB 对齐）</h3>
+<h3 id="75-pinunpin-代码64kb-对齐">7.5 Pin/Unpin 代码（64KB 对齐）</h3>
 <pre><code class="language-c">#define GPU_BOUND_SHIFT   16
 #define GPU_BOUND_SIZE    ((u64)1 &lt;&lt; GPU_BOUND_SHIFT)
 #define GPU_BOUND_OFFSET  (GPU_BOUND_SIZE-1)
@@ -1126,7 +1131,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 {
     nvidia_p2p_put_pages(0, 0, (u64)address, page_table);  // 必须在 get 的同一进程上下文
 }</code></pre>
-<h3 id="66-设计要点">6.6 设计要点</h3>
+<h3 id="76-设计要点">7.6 设计要点</h3>
 <ul>
 <li><strong>Lazy Unpinning（懒卸载）</strong>：pin GPU 显存到 BAR 是昂贵操作（毫秒级）。传输完成后保持 pinned，LRU 在总 size 达阈值或 BAR 耗尽时才 unpin。</li>
 <li><strong>Registration Cache（注册缓存）</strong>：通信中间件常用 pin-down cache；64KB 边界对齐更省资源（BAR 以 64KB page 映射，同 64KB 边界两区返回同一 BAR mapping）。失效检测两选项：① 拦截所有 CUDA alloc/dealloc API（推荐）；② Buffer ID tag check（引入额外 CUDA 调用，<strong>不推荐用于延迟敏感</strong>）。</li>
@@ -1140,7 +1145,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <li><strong>Tokens（CUDA 6.0 起 deprecated）</strong>：<code>p2pToken</code> + <code>vaSpaceToken</code> 唯一标识 GPU VA space；64bit <code>p2pToken</code> 随机化防猜；无 token 时驱动把 Kernel API 限制在拥有内存分配的进程。</li>
 </ul>
 <hr>
-<h2 id="七、gdr-全生命周期实例跨节点-gpu-读写">七、GDR 全生命周期实例：跨节点 GPU 读写</h2>
+<h2 id="八、gdr-全生命周期实例跨节点-gpu-读写">八、GDR 全生命周期实例：跨节点 GPU 读写</h2>
 <p>本节以 GDR 为实例，串联从 OS 启动、BAR1 就绪，到用户态分配 GPU 显存并注册 RDMA 内存区域、跨节点 RDMA WRITE/READ 数据传输，再到解注册与回收的<strong>完整生命周期</strong>。每一步操作标注发起方（<code>【角色】</code>），指明该操作来源于 BIOS/OS 内核、<code>nvidia.ko</code>、MLNX_OFED（内核态或用户态）、<code>nvidia-peermem.ko</code>、外部用户应用还是 HCA 硬件。术语在首次出现处行内简释。</p>
 <p><div class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340">
 <defs>    <!-- green arrow -->
@@ -1333,7 +1338,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <p>本阶段目标：把一个原始的 GPU 虚拟地址，转变成 HCA 的 DMA 引擎能寻址、能授权读写的硬件资源。即建立 <strong>GPU VA → GPU 物理/BAR 总线地址 → HCA mkey 转换表</strong> 的映射链路。这是 GDR 建链的核心。</p>
 <p><strong>1.1 分配 GPU 显存并取得 GPU 虚拟地址</strong></p>
 <ul>
-<li>【外部用户应用】调用 <code>cudaMalloc(&ptr, size)</code>（CUDA Runtime，<code>libcudart.so</code>）。</li>
+<li>【外部用户应用】调用 <code>cudaMalloc(&amp;ptr, size)</code>（CUDA Runtime，<code>libcudart.so</code>）。</li>
 <li>该调用经 CUDA 用户态驱动 <code>libcuda.so</code> 向内核态 <strong>【nvidia.ko】</strong> 发起 ioctl：分配 GPU 设备内存、建立 GPU 页表项、把这段 GPU 物理显存映射进进程的<strong>统一虚拟地址空间（UVA）</strong>。</li>
 <li>返回的 <code>ptr</code> 是一个 <strong>GPU 虚拟地址（VA）</strong>，它位于 <strong>【用户进程的 UVA 空间】</strong> 中由 CUDA 管理的子区段内——</li>
 <li><strong>不是</strong> PCIe 系统物理地址；</li>
@@ -1343,7 +1348,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 </ul>
 <p><strong>1.2 启用 CUDA 同步语义</strong></p>
 <ul>
-<li>【外部用户应用】<code>cuPointerSetAttribute(&flag, CU_POINTER_ATTRIBUTE_SYNC_MEMOPS, ptr)</code>。</li>
+<li>【外部用户应用】<code>cuPointerSetAttribute(&amp;flag, CU_POINTER_ATTRIBUTE_SYNC_MEMOPS, ptr)</code>。</li>
 <li><strong>在干什么</strong>：让 CUDA 驱动对 <code>ptr</code> 指向的这块 GPU 显存走更保守的模式——任何 CUDA 内存操作（如 <code>cuMemcpyDtoD</code>、kernel 访问该 buffer）在该 API <strong>返回控制给 CPU 线程之前</strong>，均对外部 BAR 映射（即 PCIe 其他设备通过 BAR1 看到的 GPU 显存）<strong>可见并完成</strong>。</li>
 <li><strong>为什么必须</strong>：否则 CUDA 会把某些操作异步排队（如 GPU↔GPU copy 不等完成就返回），而后续 RDMA 经 BAR 映射读写此 buffer 时可能看到 stale / 部分的数据，构成 data race。设了 SYNC_MEMOPS 就是建立"CUDA 侧内存序 ↔ BAR 映射"的<strong>一致性契约</strong>。</li>
 <li>这是用户的 CUDA 代码中唯一为 GDR 设置同步语义的调用——其余由 IB/peermem 栈自动处理。</li>
@@ -1384,7 +1389,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 </ul>
 <p><strong>1.7 "按需"把 GPU 页映射进 HCA 的 I/O 地址空间</strong></p>
 <ul>
-<li>【nvidia-peermem.ko】视平台情况调用 <code>nvidia_p2p_dma_map_pages(peer_pci_dev, page_table, &dma_mapping)</code>，把 GPU 页映射到 HCA 专用的 DMA 地址空间。</li>
+<li>【nvidia-peermem.ko】视平台情况调用 <code>nvidia_p2p_dma_map_pages(peer_pci_dev, page_table, &amp;dma_mapping)</code>，把 GPU 页映射到 HCA 专用的 DMA 地址空间。</li>
 <li><strong>为什么是"按需"而非"每次必须"</strong>：</li>
 <li>当 <strong>HCA 的 I/O 地址空间 == CPU 物理地址空间</strong>（典型 x86 + IOMMU 已直通/禁用——这正是阶段 0.2 的 GDR 标准配置），<code>get_pages</code> 返回的 GPU BAR 总线地址<strong>已是 HCA 可直接使用的最终地址</strong>，dma_map 等价于恒等映射，可跳过。</li>
 <li>当 <strong>I/O 地址 ≠ CPU 物理地址</strong>（例如平台存在 IOMMU 翻译、某些 ARM64 / POWER 架构上 PCIe I/O 地址经过了额外的地址变换），才<strong>必须</strong>走 <code>dma_map_pages</code> 把 GPU 页映射进 HCA 所在的 DMA 地址域，得到设备真正可用的总线地址。</li>
@@ -1408,13 +1413,13 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <li>【外部用户应用】两端各创建 RC QP（Reliable Connection Queue Pair，<strong>可靠连接队列对</strong>）。</li>
 <li><strong>QP 是什么</strong>：RDMA 的通信端点，概念类似 TCP 的 socket；每对 QP 负责一对节点间的一条可靠、保序传输通道。</li>
 <li><strong>RC 是什么</strong>：RDMA 的传输类型之一——可靠、面向连接、一对一。</li>
-<li>【MLNX_OFED 用户态】<code>ibv_create_qp(pd, &qp_attr)</code> 创建 QP。</li>
+<li>【MLNX_OFED 用户态】<code>ibv_create_qp(pd, &amp;qp_attr)</code> 创建 QP。</li>
 <li>创建后两端还需经带内 send/recv 交换 QPN（QP Number，全局唯一的 QP 标识）等连接参数以完成 RC QP 的"连接建立"（或由 RDMA CM 协议自动完成）。</li>
 </ul>
 <p><strong>2.2 互换 rkey + Remote VA</strong></p>
 <ul>
 <li>两端把阶段 1 <code>ibv_reg_mr</code> 产出的 <strong>rkey</strong> 与注册时的 <strong>VA</strong>，打包经已建立的 RC QP 做普通的 send/recv（非 RDMA，就是普通的消息收发）发给对端。</li>
-<li>交换后：**节点 A 持有 <code>(B 的 rkey, B 的注册 VA)</code>**，节点 B 反向持有 <code>(A 的 rkey, A 的注册 VA)</code>。</li>
+<li>交换后：<strong>节点 A 持有 <code>(B 的 rkey, B 的注册 VA)</code></strong>，节点 B 反向持有 <code>(A 的 rkey, A 的注册 VA)</code>。</li>
 <li>该步不涉及 <code>nvidia.ko</code>、不涉及 <code>nvidia-peermem</code>、不涉及 HCA 硬件 mkey 表修改——纯粹是 CPU 侧的控制面消息传递。</li>
 </ul>
 <h3 id="阶段-3数据传输-hca-的-dma-引擎经-pcie-直访多侧-gpu-显存">阶段 3｜数据传输 —— HCA 的 DMA 引擎经 PCIe 直访多侧 GPU 显存</h3>
@@ -1450,7 +1455,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <li><strong>完成通知</strong>：</li>
 </ol>
 <ul>
-<li>【MLNX_OFED 用户态】A 端 <code>ibv_poll_cq(cq, &wc)</code> 在自己 CQ 上轮询到一个 CQE（Work Completion），其状态 = IBV_WC_SUCCESS，表示 WR 已完成。</li>
+<li>【MLNX_OFED 用户态】A 端 <code>ibv_poll_cq(cq, &amp;wc)</code> 在自己 CQ 上轮询到一个 CQE（Work Completion），其状态 = IBV_WC_SUCCESS，表示 WR 已完成。</li>
 <li><strong>CQ（Completion Queue，完成队列）</strong>：随 QP 创建，用于收集完成通知；<strong>CQE（Completion Queue Entry，完成队列项）</strong>：每个 WR 完成后在 CQ 里生成的一记录。</li>
 </ul>
 <blockquote>全程数据面：A GPU BAR ←PCIe-DMA→ A HCA ←网络→ B HCA ←PCIe-DMA→ B GPU BAR。无一次 CPU 侧内存拷贝。</blockquote>
@@ -1493,7 +1498,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <p><strong>4.2 异常路径：cudaFree 先于 dereg_mr</strong></p>
 <ul>
 <li>如果用户先调 <code>cudaFree</code> 而 MR 尚未 <code>dereg_mr</code>：</li>
-<li>【nvidia.ko】检测到该段 GPU 显存正被释放 → <strong>同步触发</strong>阶段 1.6 注册的 **<code>free_callback</code>**（即在那个进程上下文中直接调用注册的回调函数，不等它返回）。</li>
+<li>【nvidia.ko】检测到该段 GPU 显存正被释放 → <strong>同步触发</strong>阶段 1.6 注册的 <strong><code>free_callback</code></strong>（即在那个进程上下文中直接调用注册的回调函数，不等它返回）。</li>
 <li>【nvidia-peermem.ko】（<code>free_callback</code> 的实际执行者）收到回调后，<strong>必须等待所有在途 DMA 传输完成</strong>（避免 HCA 继续访问已释放的物理页），然后调用 <code>nvidia_p2p_free_page_table()</code> 清理 page table 内核对象。</li>
 <li><strong>关键区别</strong>：callback 里调的清理函数是 <code>nvidia_p2p_free_page_table</code>（<strong>不是</strong> <code>nvidia_p2p_put_pages</code>）——因为 NVIDIA 驱动在 free_callback 返回后会自行处理 unmap/page-put。两者不应混淆调用。</li>
 </ul>
@@ -1507,8 +1512,8 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 </ul>
 <p><strong>阶段 4 闭环</strong>：正常 <code>dereg_mr → cudaFree</code> 则干净拆除；异常 <code>cudaFree</code> 先到则 <code>free_callback</code> 兜底。整个 GDR 生命周期结束。</p>
 <hr>
-<h2 id="八、gpudirect-storage-gds-技术细节">八、GPUDirect Storage (GDS) 技术细节</h2>
-<h3 id="81-收益">8.1 收益</h3>
+<h2 id="九、gpudirect-storage-gds-技术细节">九、GPUDirect Storage (GDS) 技术细节</h2>
+<h3 id="91-收益">9.1 收益</h3>
 <ul>
 <li><strong>带宽</strong>：GPU/NIC/存储在同一 PCIe switch 下时带宽更高；GDS 经直连路径（绿）而非经 CPU bounce（红），带宽可加性叠加。</li>
 <li><strong>延迟</strong>：直连仅一次拷贝，源→目标；bounce 两次。CPU 抖动消除。</li>
@@ -1519,7 +1524,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <li><strong>Migratable Memory</strong>：CUDA 12.2 起 GDS 支持任意分配类型 buffer（含 CPU↔GPU 迁移内存，HMM/Grace-Hopper）。</li>
 <li><strong>Asynchrony</strong>：CUDA 12.2 加 stream 参数，异步提交与执行。</li>
 </ul>
-<h3 id="82-软件架构">8.2 软件架构</h3>
+<h3 id="92-软件架构">9.2 软件架构</h3>
 <p><div class="figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 660">
 <defs>    <!-- green arrow -->
     <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
@@ -1598,7 +1603,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <rect x="60" y="588" width="14" height="14" rx="2" ry="2" fill="#E8F5E9" stroke="#E8F5E9" stroke-width="1"/>
 <text x='82' y='597' font-family='"Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif' font-size='11' fill='#333333' text-anchor='start'>GDS 专用层</text>
 </svg><p class="fig-caption">图5：GDS 软件栈分层架构与 Workflow 1 调用栈</p></div></p>
-<h3 id="83-cufile-api-全家桶">8.3 cuFile API 全家桶</h3>
+<h3 id="93-cufile-api-全家桶">9.3 cuFile API 全家桶</h3>
 <div class="table-wrapper"><table>
 <thead><tr>
 <th>类别</th>
@@ -1622,7 +1627,7 @@ void unpin_memory(void *address, size_t size, nvidia_p2p_page_table_t *page_tabl
 <td><code>cuFileBatchIO{SetUp,Submit,GetStatus,Cancel,Destroy}</code></td>
 </tr>
 </tbody></table></div>
-<h3 id="84-posix-vs-cufile-代码对比">8.4 POSIX vs cuFile 代码对比</h3>
+<h3 id="94-posix-vs-cufile-代码对比">9.4 POSIX vs cuFile 代码对比</h3>
 <p>POSIX（需 bounce buffer + cudaMemcpy）：</p>
 <pre><code class="language-c">int fd = open(...);
 void *sysmem_buf, *gpumem_buf;
@@ -1643,7 +1648,7 @@ void *gpumem_buf;
 cudaMalloc(gpumem_buf, buf_size);
 cuFileRead(&amp;fh, gpumem_buf, buf_size, ...);          // 存储→GPU 直达
 doit&lt;&lt;&lt;gpumem_buf, ...&gt;&gt;&gt;();</code></pre>
-<h3 id="85-性能优化">8.5 性能优化</h3>
+<h3 id="95-性能优化">9.5 性能优化</h3>
 <ul>
 <li><strong>Path Selection（路径选择）</strong>：多路径可用时选最优（DGX-2 有 PCIe 经 CPU 与 NVLink 两路径）。</li>
 <li><strong>Staging（中间缓冲）</strong>：单段不可达的路径分多段，用 GPU A staging buffer + NVLink 到 GPU B。</li>
@@ -1679,12 +1684,12 @@ doit&lt;&lt;&lt;gpumem_buf, ...&gt;&gt;&gt;();</code></pre>
 </tr>
 </tbody></table></div>
 <blockquote>NIC 与 GPU 在同一 PCIe tree 时，即使启用也不走 dynamic routing（直接 P2P/兼容模式）。</blockquote>
-<h3 id="86-兼容模式与-o_direct">8.6 兼容模式与 O_DIRECT</h3>
+<h3 id="96-兼容模式与-o_direct">9.6 兼容模式与 O_DIRECT</h3>
 <ul>
 <li>直传需 <code>O_DIRECT</code> 打开文件，否则内容缓冲在 CPU 系统内存。</li>
 <li><strong>CUDA 12.2（GDS 1.7.x）起</strong>：即使非 <code>O_DIRECT</code>，对页对齐 buffer（aligned size 与 offset）也走 GDS-O_DIRECT 路径。</li>
 </ul>
-<h3 id="87-cufilejson-配置示例">8.7 cufile.json 配置示例</h3>
+<h3 id="97-cufilejson-配置示例">9.7 cufile.json 配置示例</h3>
 <pre><code class="language-json">{
   "properties": {
     "rdma_dynamic_routing": false,
@@ -1708,7 +1713,7 @@ doit&lt;&lt;&lt;gpumem_buf, ...&gt;&gt;&gt;();</code></pre>
   "weka": { "rdma_write_support": false }
 }</code></pre>
 <p>地址列表优先级（高→低）：per-mount > per-file-system > 全局。</p>
-<h3 id="88-校验与监控">8.8 校验与监控</h3>
+<h3 id="98-校验与监控">9.8 校验与监控</h3>
 <pre><code class="language-bash"># 验证 dynamic routing 配置
 $ ./gdscheck -p
 properties.rdma_dynamic_routing : 1
@@ -1722,8 +1727,8 @@ $ cat /proc/kallsyms | grep -i p2pdma_pgmap_ops
 0000000000000000 d p2pdma_pgmap_ops</code></pre>
 <p>监控设施：<strong>Ftrace</strong>（GDS 导出符号；<code>libcufile.so</code> 有 static tracepoints，<code>nvidia-fs.ko</code> 暂不支持）、<strong>Logging</strong>（<code>cufile.json</code> 选 ERROR/WARN/INFO/DEBUG/TRACE）、<strong>Profiling</strong>（可配置统计）。</p>
 <hr>
-<h2 id="九、gdr-vs-gds-对比与平台拓扑专题">九、GDR vs GDS 对比与平台拓扑专题</h2>
-<h3 id="91-gdr-vs-gds-总览对比">9.1 GDR vs GDS 总览对比</h3>
+<h2 id="十、gdr-vs-gds-对比与平台拓扑专题">十、GDR vs GDS 对比与平台拓扑专题</h2>
+<h3 id="101-gdr-vs-gds-总览对比">10.1 GDR vs GDS 总览对比</h3>
 <div class="table-wrapper"><table>
 <thead><tr>
 <th>维度</th>
@@ -1777,7 +1782,7 @@ $ cat /proc/kallsyms | grep -i p2pdma_pgmap_ops
 <td>Async (GDA-ST/GT) 排入 stream/graph</td>
 </tr>
 </tbody></table></div>
-<h3 id="92-平台拓扑专题">9.2 平台拓扑专题</h3>
+<h3 id="102-平台拓扑专题">10.2 平台拓扑专题</h3>
 <h4>DGX-2 多路径</h4>
 <ul>
 <li>GPU A → CPU A root port → CPU 互联 → CPU B → GPU B（跨 CPU）</li>
@@ -1799,7 +1804,7 @@ $ cat /proc/kallsyms | grep -i p2pdma_pgmap_ops
 <h4>Grace-Hopper</h4>
 <p>GDS P2P 模式不支持 migratable memory（<code>cudaMallocManaged</code>/malloc/stack），但用兼容路径（内部 GPU/CPU bounce buffer）支持 IO；CUDA 12.2 起支持任意分配类型 buffer 目标。</p>
 <hr>
-<h2 id="十、典型应用场景">十、典型应用场景</h2>
+<h2 id="十一、典型应用场景">十一、典型应用场景</h2>
 <div class="table-wrapper"><table>
 <thead><tr>
 <th>场景</th>
@@ -1830,8 +1835,8 @@ $ cat /proc/kallsyms | grep -i p2pdma_pgmap_ops
 <p><strong>适用条件</strong>（GDS）：数据传输直接到/出 GPU（不经 CPU）；IO 是显著瓶颈；传输显式；buffer pinned 在 GPU；使用 CUDA + cuFile API；使用 Quadro/数据中心 GPU。</p>
 <p><strong>不适用</strong>：应用在 GPU 计算前后用 CPU 解析/处理数据（GDS 帮不上）；计算时间远大于 IO 时间（IO 不在关键路径）。</p>
 <hr>
-<h2 id="十一、部署与启用要点">十一、部署与启用要点</h2>
-<h3 id="111-gdr-部署">11.1 GDR 部署</h3>
+<h2 id="十二、部署与启用要点">十二、部署与启用要点</h2>
+<h3 id="121-gdr-部署">12.1 GDR 部署</h3>
 <pre><code class="language-bash"># 安装 MLNX_OFED（带 RDMA peer memory 支持）
 # 安装 NVIDIA GPU 驱动（若先于 OFED 安装，需重装以编译 nvidia-peermem）
 # 切换 nv_peer_mem → nvidia-peermem（见 §3.1）
@@ -1846,7 +1851,7 @@ cd &lt;output&gt;/kernel/
 make module
 # 在你的模块 Makefile：
 KBUILD_EXTRA_SYMBOLS := &lt;path&gt;/Module.symvers</code></pre>
-<h3 id="112-gds-部署">11.2 GDS 部署</h3>
+<h3 id="122-gds-部署">12.2 GDS 部署</h3>
 <pre><code class="language-bash"># 安装 CUDA Toolkit（含 libcufile.so / libcufile.h）
 # 安装 nvidia-fs 内核驱动（DKMS；或 DGX BaseOS 6.0+ 自带）
 # 安装依赖：libmount-dev libnuma-dev
@@ -1858,18 +1863,18 @@ KBUILD_EXTRA_SYMBOLS := &lt;path&gt;/Module.symvers</code></pre>
 
 # 监控 BAR1
 nvidia-smi -q | grep -A3 "BAR1 Memory Usage"</code></pre>
-<h3 id="113-容器化">11.3 容器化</h3>
+<h3 id="123-容器化">12.3 容器化</h3>
 <p>容器只含用户态代码，依赖宿主机内核态组件（<code>nvidia-fs.ko</code>/<code>nvidia-peermem</code>）。缺驱动/配置时启用兼容模式保持功能。参考 <a href="https://github.com/NVIDIA/MagnumIO/tree/main/gds/docker">NVIDIA/MagnumIO</a> 的 GDS in container 示例。</p>
-<h3 id="114-已知坑">11.4 已知坑</h3>
+<h3 id="124-已知坑">12.4 已知坑</h3>
 <ul>
-<li>**<code>nvidia-peermem</code> 无自动加载服务**（CUDA 11.4 known issue），需手动 <code>modprobe</code>。</li>
-<li>**<code>nv-p2p</code> symbol 冲突**：使用前应卸载 NVIDIA display driver。</li>
+<li><strong><code>nvidia-peermem</code> 无自动加载服务</strong>（CUDA 11.4 known issue），需手动 <code>modprobe</code>。</li>
+<li><strong><code>nv-p2p</code> symbol 冲突</strong>：使用前应卸载 NVIDIA display driver。</li>
 <li><strong>CUDA 12.2 race bug</strong>：R515–R535 分支 invalidation callback 与 <code>put_pages</code> 并发致 null-deref；persistent mapping 不受影响；升级到 535.14+/525.105.17+ TeslaRD3。</li>
 <li><strong>CUDA 12.8 P2PDMA 限制</strong>：RAID0、NVMe Multipathing 在 upstream kernel P2PDMA 下未启用。</li>
 <li><strong>nv-p2p 弃用</strong>：Blackwell SoC 不可用，CUDA 14.0 从 Tegra 移除；迁移到 <code>pin_user_pages</code> 等。</li>
 </ul>
 <hr>
-<h2 id="十二、术语释义">十二、术语释义</h2>
+<h2 id="十三、术语释义">十三、术语释义</h2>
 <p>本文涉及的专有名词与缩略词按类别释义。若为英文缩写，则括号内标注全称；若有多种叫法，则以「又称：xxx」注明。</p>
 <h3 id="gpu-与-cuda-基础">GPU 与 CUDA 基础</h3>
 <ul>
@@ -1976,7 +1981,7 @@ nvidia-smi -q | grep -A3 "BAR1 Memory Usage"</code></pre>
 <li><strong>DLRM</strong>（Deep Learning Recommendation Model）：深度学习推荐模型。Meta 提出的适用于大规模稀疏特征的推荐系统模型。</li>
 </ul>
 <hr>
-<h2 id="十三、总结与参考链接">十三、总结与参考链接</h2>
+<h2 id="十四、总结与参考链接">十四、总结与参考链接</h2>
 <h3 id="核心要点">核心要点</h3>
 <ul>
 <li><strong>GDR</strong> 与 <strong>GDS</strong> 同属 GPUDirect 家族，核心范式一致：<strong>控制面在 CPU 建通路，数据面由设备 DMA 引擎直连 GPU 显存，绕过 CPU bounce buffer</strong>。</li>
@@ -2005,7 +2010,7 @@ nvidia-smi -q | grep -A3 "BAR1 Memory Usage"</code></pre>
 <hr>
 <p>*本文档基于 NVIDIA 官方公开文档整理，版本锚点：GPUDirect RDMA v13.3、GPUDirect Storage v1.18。具体 API 签名与配置请以官方文档为准。*</p>
 <hr>
-<h2 id="十四、论文精讲phoenix">十四、论文精讲：Phoenix</h2>
+<h2 id="十五、论文精讲phoenix">十五、论文精讲：Phoenix</h2>
 <p><strong>论文标题</strong>：Phoenix: A Refactored I/O Stack for GPU Direct Storage without Phony Buffers<br><strong>作者</strong>：Jianqin Yan, Shi Qiu, Yina Lv 等 11 人（清华大学）<br><strong>发表</strong>：SC '25（International Conference for High Performance Computing, Networking, Storage and Analysis）<br><strong>DOI</strong>：<a href="https://dl.acm.org/doi/10.1145/3712285.3759862">10.1145/3712285.3759862</a></p>
 <h3 id="背景与问题">背景与问题</h3>
 <p>GPUDirect Storage（GDS）通过 P2P-DMA 在 GPU 与存储设备之间建立直连数据通路，降低了 GPU 存储访问延迟与 CPU 开销。然而当前的 GDS 实现中，仍有一个核心设计缺陷：<strong>phony buffer</strong>——系统在 host 内存中维护了一个"虚假缓冲区"，用于与 Linux 内核的存储栈（VFS / 文件系统 / 块层）交互。这个 phony buffer 的存在导致：</p>

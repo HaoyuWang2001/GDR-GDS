@@ -26,18 +26,27 @@ def anchor_id(heading_text):
 
 
 def inline_parse(text):
-    parts = re.split(r'(?<!`)`(?!`)(.+?)(?<!`)`(?!`)', text)
-    result = []
-    for i, part in enumerate(parts):
-        if i % 2 == 1:
-            result.append(f'<code>{part}</code>')
-        else:
-            part = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', part)
-            part = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', r'<img src="\2" alt="\1" class="figure-img">', part)
-            part = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', part)
-            part = re.sub(r'<(https?://[^>]+)>', r'<a href="\1">\1</a>', part)
-            result.append(part)
-    return ''.join(result)
+    """Parse inline markdown: **bold**, `code`, ![img](url), [link](url), <autolink>.
+    Uses placeholders for code spans so bold markers wrap correctly around them."""
+    # 1. Extract code spans into placeholders
+    code_spans = []
+    def stash_code(m):
+        code_spans.append(m.group(1))
+        return f'\x00CODE{len(code_spans)-1}\x00'
+    text = re.sub(r'(?<!`)`(?!`)(.+?)(?<!`)`(?!`)', stash_code, text)
+
+    # 2. Apply formatting to text without backticks
+    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    text = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)', r'<img src="\2" alt="\1" class="figure-img">', text)
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', text)
+    text = re.sub(r'<(https?://[^>]+)>', r'<a href="\1">\1</a>', text)
+
+    # 3. Restore code spans with HTML escaping
+    for i, code in enumerate(code_spans):
+        escaped = code.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        text = text.replace(f'\x00CODE{i}\x00', f'<code>{escaped}</code>')
+
+    return text
 
 
 def parse_table_row(line):
