@@ -269,7 +269,9 @@ a:hover { text-decoration: underline; }
 
 .layout {
     display: flex;
+    justify-content: center;
     min-height: 100vh;
+    padding-left: 270px;
 }
 
 .sidebar {
@@ -337,8 +339,8 @@ a:hover { text-decoration: underline; }
 }
 
 .content {
-    margin-left: 270px;
-    flex: 1;
+    flex: 0 1 auto;
+    width: 100%;
     max-width: 920px;
     padding: 48px 56px 80px;
 }
@@ -451,7 +453,7 @@ tbody tr:hover { background: var(--table-hover); }
 tbody tr:last-child td { border-bottom: none; }
 
 @media (max-width: 768px) {
-    .layout { flex-direction: column; }
+    .layout { flex-direction: column; padding-left: 0; }
 
     .sidebar {
         position: fixed;
@@ -474,7 +476,6 @@ tbody tr:last-child td { border-bottom: none; }
     .mobile-nav-toggle { display: block; }
 
     .content {
-        margin-left: 0;
         padding: 20px 18px 60px;
         margin-top: 10px;
     }
