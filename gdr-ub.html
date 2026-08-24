@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵衢总线 UB-GDR 路径技术文档</title>
+<style>
+:root {
+    --bg: #f8f9fb;
+    --text: #2c2c2c;
+    --muted: #5a6270;
+    --accent: #0d47a1;
+    --accent2: #1565c0;
+    --code-bg: #1e1e2e;
+    --code-text: #e0e0e0;
+    --code-key: #82aaff;
+    --code-comment: #6a737d;
+    --table-stripe: #f0f2f5;
+    --table-hover: #e3e8f0;
+    --border: #dde1e6;
+    --bq-bg: #eef4fb;
+    --bq-border: #1565c0;
+    --warn-bg: #fdf3e7;
+    --warn-border: #e65100;
+    --ok-bg: #e8f5e9;
+    --ok-border: #2e7d32;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 15px;
+}
+
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: #1a1a2e;
+    color: #c4c4d4;
+    overflow-y: auto;
+    padding: 24px 18px;
+    z-index: 10;
+}
+.sidebar-header {
+    font-size: 15px; font-weight: 700; color: #fff;
+    margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar ul { list-style: none; }
+.sidebar li { margin-bottom: 2px; }
+.sidebar a {
+    display: block; padding: 6px 12px; border-radius: 6px;
+    color: var(--sidebar-text, #c4c4d4); font-size: 13px;
+}
+.sidebar a:hover { background: #2a2a3e; color: #fff; }
+.sidebar .sub a { padding-left: 26px; font-size: 12.5px; }
+.sidebar a.active { background: #26324a; color: #4fc3f7; font-weight: 600; }
+
+.content {
+    margin-left: 260px;
+    padding: 40px 56px 80px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 26px; color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px; margin-bottom: 28px;
+}
+h2 {
+    font-size: 20px; color: var(--accent);
+    margin: 40px 0 16px;
+    padding-left: 10px;
+    border-left: 4px solid var(--accent2);
+}
+h3 { font-size: 16px; color: var(--accent2); margin: 24px 0 10px; }
+h4 { font-size: 14px; color: var(--text); margin: 18px 0 8px; }
+
+p { margin: 10px 0; }
+ul, ol { margin: 8px 0 8px 26px; }
+li { margin: 4px 0; }
+code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+       font-size: 13px; background: #eceff4; padding: 1px 5px; border-radius: 3px; color: #0d3c78; }
+pre {
+    background: var(--code-bg); color: var(--code-text);
+    padding: 16px 18px; border-radius: 8px; overflow-x: auto;
+    margin: 12px 0; font-size: 13px; line-height: 1.6;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+pre .c { color: var(--code-comment); font-style: italic; }
+pre .k { color: var(--code-key); }
+pre .g { color: #89ddff; }   /* green-ish path markers */
+pre .y { color: #ffcb6b; }   /* yellow highlights */
+pre .r { color: #f07178; }   /* red / not-working */
+
+table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 13.5px; }
+th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+th { background: #e8edf5; color: var(--accent); font-weight: 600; }
+tbody tr:nth-child(even) { background: var(--table-stripe); }
+tbody tr:hover { background: var(--table-hover); }
+
+blockquote {
+    background: var(--bq-bg); border-left: 4px solid var(--bq-border);
+    padding: 12px 16px; margin: 14px 0; border-radius: 0 6px 6px 0;
+}
+.note-warn {
+    background: var(--warn-bg); border-left: 4px solid var(--warn-border);
+    padding: 12px 16px; margin: 14px 0; border-radius: 0 6px 6px 0;
+}
+.note-ok {
+    background: var(--ok-bg); border-left: 4px solid var(--ok-border);
+    padding: 12px 16px; margin: 14px 0; border-radius: 0 6px 6px 0;
+}
+
+details {
+    border: 1px solid var(--border); border-radius: 8px;
+    margin: 12px 0; padding: 4px 16px;
+    background: #fff;
+}
+details summary {
+    cursor: pointer; font-weight: 600; color: var(--accent2);
+    padding: 10px 0; font-size: 15px;
+}
+details[open] summary { border-bottom: 1px dashed var(--border); margin-bottom: 10px; }
+
+.qa-answer { padding-bottom: 12px; }
+
+@media (max-width: 900px) {
+    .sidebar { display: none; }
+    .content { margin-left: 0; padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <div class="sidebar-header">灵衢总线 UB-GDR<br>技术文档</div>
+  <ul>
+    <li><a href="#sec1">1. 项目背景</a></li>
+    <li><a href="#sec2">2. 总体流程概述</a></li>
+    <li class="sub"><a href="#sec2-1">2.1 三条测试路径</a></li>
+    <li class="sub"><a href="#sec2-2">2.2 端到端工作流</a></li>
+    <li><a href="#sec3">3. 调用链路概述</a></li>
+    <li class="sub"><a href="#sec3-a">A. 申请 &amp; 注册流程</a></li>
+    <li class="sub"><a href="#sec3-b">B. 测试循环执行期</a></li>
+    <li><a href="#sec4">4. Q&amp;A</a></li>
+    <li class="sub"><a href="#q1">Q1: URMA Token 机制</a></li>
+    <li class="sub"><a href="#q2">Q2: Context 结构体体系</a></li>
+  </ul>
+</nav>
+
+<main class="content">
+
+<h1>灵衢总线 UB-GDR 路径技术文档</h1>
+
+<!-- ======================================================= -->
+<h2 id="sec1">1. 项目背景</h2>
+
+<p><strong>灵衢总线（UnifiedBus, UB）</strong> 是华为自研的高速互连总线，用于数据中心的服务器内、超节点间通信。</p>
+
+<p><strong>UMDK（Unified Memory Development Kit）</strong> 是以内存语义为中心的分布式通信软件库，向下驱动灵衢总线硬件，向上提供：
+<code>URMA</code>（统一远程内存访问，单边/双边/原子操作）、<code>URPC</code>、<code>ULOCK</code>、<code>USOCK</code> 等能力。</p>
+
+<p><strong>URMA（Unified Remote Memory Access）</strong> 是 UMDK 的核心：让应用能够像访问本地内存一样，对远端内存进行读、写、原子操作，是分布式训练/推理通信的基础。</p>
+
+<p><strong>UB-GDR 目标</strong>：让 <strong>GPU 显存</strong>成为 URMA 可寻址、可被远端 <code>udma</code> 引擎直接 RDMA 读写的内存段，从而在 GPU 之间、GPU 与远端节点之间实现 <em>显存直达</em> 的数据通路，绕开 CPU 中转与多次拷贝，把 GPU 直连的吞吐与延迟优势发挥出来。</p>
+
+<h3>参与仓库与分工</h3>
+<table>
+<thead><tr><th>仓库</th><th>角色</th><th>关键内容</th></tr></thead>
+<tbody>
+<tr>
+  <td><code>kernel/</code></td>
+  <td>操作系统内核（Linux 6.6 openEuler）</td>
+  <td>
+    IOMMU/UMMU 侧 GDR 支撑：<code>drivers/iommu/hisilicon/ummu-core/core_matt.c</code> 新增
+    <code>ummu_sva_matt_map_phys_sg</code> 等 GDR 接口（IOMMU 支持 GDR 的补丁）；UB 总线 &amp; UMMU 基础框架
+  </td>
+</tr>
+<tr>
+  <td><code>urma_driver_netlab/</code></td>
+  <td>内核态 UB 驱动族（OOT 模块，<code>.ko</code>）</td>
+  <td>
+    <code>ubcore</code>/<code>uburma</code>/<code>ubagg</code>/<code>udma</code> 等；其中
+    <code>udma.ko</code> + <code>udma_nv_p2p_bridge.ko</code> 承载 GPU P2P 内核逻辑
+    （<code>nvidia_p2p_get_pages</code> pin 显存）
+  </td>
+</tr>
+<tr>
+  <td><code>UMDK_tool_netlab/</code></td>
+  <td>用户态库 + 测试工具（CMake 构建）</td>
+  <td>
+    <code>liburma.so</code>（核心库）、<code>liburma-udma.so</code>（udma provider，含
+    <code>is_gpu_seg</code> ucmd）、<code>urma_perftest</code>（测试程序，含 CUDA/GDRCopy loader）
+  </td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  一句话：<strong>内核给 GDR 铺 IOMMU 路（kernel 仓库）→ udma 系列 ko 在驱动层把 GPU 显存 pin 住并建映射
+  （urma_driver_netlab 仓库）→ 用户态 lib + perftest 发起显存直达的读写测试（UMDK_tool_netlab 仓库）</strong>。
+</blockquote>
+
+<!-- ======================================================= -->
+<h2 id="sec2">2. 总体流程概述</h2>
+
+<p>整个 ub-gdr 的激活过程，<strong>最终验证动作</strong>是：用 <code>urma_perftest write_lat_gpu</code> 在两台连了灵衢总线的节点上，
+跑 <em>GPU 显存之间的写延迟测试</em>（ping-pong）。其中服务端（Server）把显存注册为一段可被远端访问的 URMA 段，客户端（Client）
+通过灵衢总线的 udma 引擎把数据直接写入服务端的 GPU 显存，再收到回包，如此往返 5 万次，统计延迟。</p>
+
+<h3 id="sec2-1">2.1 三条测试路径</h3>
+
+<p>针对 GPU 内存的接入方式，perftest 支持三种 <code>--gpu-mode</code>，对应三种"显存/内存怎么参与 URMA 传输"的路径：</p>
+
+<table>
+<thead><tr><th>路径</th><th>命令行</th><th>显存参与方式</th><th>当前状态</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>GDR-DIRECT</strong></td>
+  <td><code>--gpu-mode=direct</code></td>
+  <td>
+    <code>cuMemAlloc</code> 分显存 → <code>cuMemGetHandleForAddressRange</code> 导出
+    <strong>dma-buf fd</strong>，期望走 Linux 标准 dma-buf 导入通路
+  </td>
+  <td><span style="color:#c62828;font-weight:600">未打通</span></td>
+</tr>
+<tr>
+  <td><strong>PEERMEM</strong></td>
+  <td><code>--gpu-mode=peermem</code></td>
+  <td>
+    <code>cuMemAlloc</code> 分显存 → 注册 GPU VA 段 → 内核
+    <code>udma_nv_p2p_bridge.ko</code> 调 <code>nvidia_p2p_get_pages</code> pin 显存页
+  </td>
+  <td><span style="color:#2e7d32;font-weight:600">已打通</span></td>
+</tr>
+<tr>
+  <td><strong>PROXY</strong></td>
+  <td><code>--gpu-mode=proxy</code></td>
+  <td>
+    <code>cuMemAlloc</code> 分显存 + <code>cuMemAllocHost</code> 分 host 影子 buffer，
+    数据 <strong>显存→host 暂存→URMA 传输</strong>（"落存"中转）
+  </td>
+  <td><span style="color:#2e7d32;font-weight:600">已打通（兼容路径）</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="note-warn">
+  <strong>GDR-DIRECT 当前未打通</strong>：代码里 <code>try_alloc_gdr()</code> 确实通过
+  <code>cuMemGetHandleForAddressRange</code> 拿到了 dma-buf fd，但 URMA 的 ioctl ABI 中
+  <code>dmabuf_fd</code> 字段<strong>尚未正式加入</strong>（仅在头文件注释中规划），fd 最终并未传给内核。
+  因此 <code>--gpu-mode=direct</code> 实际会<strong>退化为与 PEERMEM 相同的内核通路</strong>
+  （<code>is_gpu_seg=1</code> → <code>nvidia_p2p_get_pages</code>），真正的 dma-buf 直通还需后续扩展
+  UABI 才能落地。
+</div>
+
+<h3 id="sec2-2">2.2 端到端工作流（自然语言大粒度描述）</h3>
+
+<ol>
+  <li><strong>准备内核</strong>：编译并启动带 GDR/IOMMU 补丁的自编译内核（版本串含自定义 LOCALVERSION，如
+      <code>6.6.0-gdr_xxxx_v0.1+</code>），确认 <code>ummu-core.ko</code> 等基础层模块随内核加载。</li>
+  <li><strong>构建内核态驱动</strong>：基于上述内核的 KDIR，编译 <code>urma_driver_netlab</code> 的
+      <code>ubcore/uburma/ubagg/udma/udma_nv_p2p_bridge</code> 等 OOT 模块；加载顺序为依赖链：先 ubcore/uburma，
+      最后 udma + udma_nv_p2p_bridge（bridge 在 init 时向 udma 注册 GPU P2P 回调）。</li>
+  <li><strong>构建用户态</strong>：CMake 编译 <code>liburma.so</code>、<code>liburma-udma.so</code>、
+      <code>urma_perftest</code>，并用 <code>isolate_umdk_gpu.sh</code> 隔离部署（避免污染系统库）。</li>
+  <li><strong>建链注册</strong>：两端启动 perftest，服务端分配显存/内存并注册为 URMA 段（含 GPU 标记），
+      通过 TCP 控制面交换段信息（VA 等），客户端导入远端段。</li>
+  <li><strong>跑测试</strong>：客户端/服务端按 ping-pong 协议循环执行 WRITE，记录并统计往返延迟；
+      根据 <code>--gpu-mode</code> 走 GDR-DIRECT / PEERMEM / PROXY 三条路径之一。</li>
+</ol>
+
+<!-- ======================================================= -->
+<h2 id="sec3">3. 调用链路概述</h2>
+
+<p>本节的视野是 <strong>二进制 / .so / .ko 级别</strong>：描述"谁调了谁、数据/控制走到哪一层"，不深入到逐行代码。
+两条主链路：<strong>A 申请 &amp; 注册流程</strong>（测试开始前的一次性建链），
+<strong>B 测试循环执行期流程</strong>（5 万次热循环里每一轮都走的路径）。</p>
+
+<h3 id="sec3-a">A. 显存/内存申请 &amp; 注册流程</h3>
+
+<p>作用：把 GPU 显存（或 host 内存）变成"两端都知道地址、内核已 pin 好页、已建好 IOMMU 映射"的 URMA 段。</p>
+
+<pre>
+<span class="c">// ---- 用户态 ----</span>
+urma_perftest                     <span class="c">// 二进制入口</span>
+  │  cuMemAlloc()                 <span class="c">→ libcuda.so：分配 GPU 显存，得到 GPU VA</span>
+  │  urma_register_seg()          <span class="c">→ liburma.so：注册段入口</span>
+  │    └─ provider register_seg   <span class="c">→ liburma-udma.so：udma_u_register_seg</span>
+  │         └─ 若 is_gpu_seg=1     <span class="c">→ 打包 GPU 标记 ucmd 进 udata 私有通道</span>
+  │  ioctl(/dev/uburma)           <span class="c">→ 陷入内核</span>
+
+<span class="c">// ---- 内核态 ----</span>
+uburma.ko                         <span class="c">// ioctl 分发</span>
+  └─ ubcore.ko                    <span class="c">// 段注册核心，透传 udata</span>
+      └─ udma.ko                  <span class="c">// udma_register_seg：识别 GPU 标记</span>
+          ├─ udma_nv_p2p_bridge.ko  <span class="c">// 调 nvidia_p2p_get_pages() pin 显存页</span>
+          │    └─ nvidia.ko         <span class="c">// 返回 GPU 物理页（PCIe 可路由地址）</span>
+          └─ ummu-core.ko          <span class="c">// ummu_sva_matt_map_phys_sg() 建 IOMMU 映射</span>
+
+<span class="c">// ---- 控制面交换 ----</span>
+exchange_seg_info()                <span class="c">// 经 TCP 把本端段信息（含 VA）发给对端</span>
+  └─ 对端 import_seg()             <span class="c">// 凭 token 导入远端段，后续可直接寻址对端显存</span>
+</pre>
+
+<p>关键接口：<code>urma_register_seg()</code>（用户态）、<code>urma_cmd_register_seg</code>（ioctl）、
+<code>nvidia_p2p_get_pages()</code>（内核，经 bridge）、<code>ummu_sva_matt_map_phys_sg()</code>（内核，GDR 新增）。</p>
+
+<h3 id="sec3-b">B. 测试循环执行期流程</h3>
+
+<p>作用：每一轮把数据从一端写入另一端显存/内存，用 flag 字节做往返同步，用 JFC 完成队列确认写入完成，测延迟。</p>
+
+<pre>
+urma_perftest: run_write_lat → run_lat_test → run_write_lat_simplex
+                                          <span class="c">// 5 万次 ping-pong 热循环</span>
+
+  C1  write_lat_wait_flag()   <span class="c">// 轮询本端 poll flag，等对端数据/回包到达</span>
+      └─ BAR 直读(libgdrapi.so/gdrdrv.ko)  或 CUDA D2H 兜底
+
+  C2  write_lat_store_flag() + urma_post_jfs_wr()   <span class="c">// 写 flag + 发 WRITE</span>
+      └─ liburma.so → ioctl → ubcore.ko → udma.ko   <span class="c">// DMA 写对端显存/内存</span>
+
+  C3  poll_jfc_until_expected_cqe()   <span class="c">// 等 JFC 完成队列返回 CQE，确认写入完成</span>
+
+  └─ 循环直到 scnt/ccnt/rcnt 都达到 iters，随后统计 min/avg/p50/p99... 延迟
+</pre>
+
+<p>关键接口：<code>urma_post_jfs_wr()</code>（用户态发 WR），
+<code>write_lat_wait_flag() / write_lat_store_flag()</code>（flag 同步，GPU 场景靠 BAR 映射直读提速），
+<code>poll_jfc_until_expected_cqe()</code>（完成轮询）。</p>
+
+<!-- ======================================================= -->
+<h2 id="sec4">4. Q&amp;A</h2>
+
+<details id="q1" open>
+<summary>Q1：URMA Token 机制是什么？token id 和 token value 分别是什么？生命周期与用法？</summary>
+<div class="qa-answer">
+
+<p>URMA 的 <strong>Token 机制</strong>是"段（Segment）的访问凭证 / 访问控制"机制：
+<em>注册方</em>（Segment 拥有者）给一段内存绑定一个 token_id + token_value，
+<em>访问方</em>（远端 importer）必须持有匹配的凭证才能导入并访问这段内存。类比：<strong>token_id 是"钥匙的编号"，token_value 是"钥匙的齿纹"</strong>。</p>
+
+<h4>两个核心结构体</h4>
+<pre>
+<span class="c">// 安全信息：token value —— "密码/齿纹"</span>
+typedef struct urma_token {
+    uint32_t token;      <span class="c">// 一个 32 位值，如 perftest 硬编码 0xABCDEF</span>
+} urma_token_t;
+
+<span class="c">// token id —— "钥匙容器"，持有者信息 + 引用计数</span>
+typedef struct urma_token_id {
+    urma_context_t  *urma_ctx;   <span class="c">// 归属的 URMA 上下文</span>
+    uint32_t         token_id;   <span class="c">// 分配的 token 编号</span>
+    uint64_t         handle;     <span class="c">// 内核对象句柄</span>
+    urma_ref_t       ref;        <span class="c">// 引用计数（生命周期管理）</span>
+    urma_token_id_flag_t flag;   <span class="c">// multi_seg 等标志</span>
+} urma_token_id_t;
+</pre>
+
+<p>相关控制位：<code>token_policy</code>（0=NONE / 1=PLAIN_TEXT / 2=SIGNED / 3=ALL_ENCRYPTED，决定校验严格度）、
+<code>token_id_valid</code>（0=不校验 token_id / 1=必须匹配）。</p>
+
+<h4>生命周期（perftest 视角）</h4>
+<ol>
+  <li><strong>分配</strong>：服务端 <code>urma_alloc_token_id(ctx)</code> → 得到 <code>urma_token_id_t</code>（token_id + handle）。</li>
+  <li><strong>绑定</strong>：服务端 <code>urma_register_seg()</code> 时在 <code>urma_seg_cfg_t</code> 里带上
+      <code>token_id</code> 指针和 <code>token_value</code>（perftest 固定 <code>g_perftest_token = {0xABCDEF}</code>）。</li>
+  <li><strong>交换</strong>：服务端经 TCP <code>exchange_seg_info</code> 把 <code>urma_seg_t</code>（内含 <code>token_id</code>）发给客户端。</li>
+  <li><strong>导入</strong>：客户端 <code>urma_import_seg(ctx, &remote_seg, &g_perftest_token, ...)</code>，
+      用相同的 token_value 作为凭证去导入远端段；内核校验 token 匹配后才允许访问。</li>
+  <li><strong>释放</strong>：段注销后 <code>urma_free_token_id()</code> 释放 token_id（引用计数归零）。</li>
+</ol>
+
+<blockquote>
+  一句话：<strong>token_id = 段访问凭证的"编号/身份"（谁发的、发给哪段），token_value = 访问的"口令"
+  （两端一致才放行）</strong>。perftest 里两端用同一个硬编码 0xABCDEF，属于最小化测试用法；
+  生产环境可配合 token_policy 升级为签名/加密校验。
+</blockquote>
+
+</div>
+</details>
+
+<details id="q2">
+<summary>Q2：出现了很多 ctx，比如 perftest_context_t、urma_context_t 等，它们都是什么？各自保存了哪些信息？</summary>
+<div class="qa-answer">
+
+<p>代码里 <code>ctx</code> 满天飞，但其实是<strong>不同层级的"上下文"</strong>，各自管好自己的那一层资源。按"上 → 下"排序：</p>
+
+<h4>1. perftest_config_t —— "测试配置"（要做什么）</h4>
+<p>命令行参数解析的静态结果：测试类型（<code>cmd</code>）、设备名（<code>dev_name</code>）、消息大小
+（<code>size</code>）、迭代次数（<code>iters</code>）、GPU 模式（<code>gpu_mode</code>）、server_ip、jetty 数等。
+它<strong>描述"这场测试想怎么跑"</strong>，不持有运行时资源。</p>
+
+<h4>2. urma_context_t —— "URMA 设备连接句柄"（最底层，直接对着硬件）</h4>
+<pre>
+typedef struct urma_context {
+    struct urma_device *dev;     <span class="c">// 对应的 URMA 设备对象</span>
+    struct urma_ops *ops;        <span class="c">// 设备操作表（open/close/ioctl...）</span>
+    int dev_fd;                  <span class="c">// 设备 sysfs 文件 fd（ioctl 入口）</span>
+    int async_fd;                <span class="c">// 异步事件文件 fd</span>
+    urma_eid_t eid;              <span class="c">// 本端在 UB 网络里的端点 ID（寻址用）</span>
+    uint32_t eid_index;
+    uint32_t uasid;              <span class="c">// 当前进程的 uasid</span>
+    ...
+} urma_context_t;
+</pre>
+<p>它是<strong>进程与一块 URMA 设备之间的"打开的连接"</strong>，所有设备级操作（建 jetty、注册段、发 WR）都挂在它上面。</p>
+
+<h4>3. perftest_context_t —— "测试运行时上下文"（最顶层，包揽一场测试的全部资源）</h4>
+<pre>
+typedef struct perftest_context {
+    urma_eid_t  eid;              <span class="c">// 本端 EID</span>
+    urma_context_t *urma_ctx;     <span class="c">// ← 内嵌 URMA 设备连接</span>
+    urma_token_id_t **token_id;   <span class="c">// 分配的 token（Q1）</span>
+
+    <span class="c">// jetty / 队列资源</span>
+    urma_jfs_t **jfs;  urma_jfr_t **jfr;      <span class="c">// 发送/接收工作队列</span>
+    urma_jfc_t **jfc_s; urma_jfc_t **jfc_r;   <span class="c">// 完成队列</span>
+    urma_jetty_t **jetty;                     <span class="c">// 双工 jetty</span>
+    uint32_t jetty_num;
+
+    <span class="c">// 内存/buffer 资源</span>
+    void **local_buf;  uint64_t buf_size;  uint64_t buf_len;  <span class="c">// 收发 buffer</span>
+    urma_target_seg_t **local_tseg;                          <span class="c">// 本地段</span>
+    perftest_gpu_buffer_t *gpu_bufs;  uint32_t gpu_bufs_n;   <span class="c">// GPU buffer 描述符</span>
+
+    <span class="c">// 远端信息 + 导入</span>
+    urma_seg_t *remote_seg;          <span class="c">// 对端段（TCP 交换来的）</span>
+    urma_target_seg_t **import_tseg; <span class="c">// 导入的远端段</span>
+
+    run_test_ctx_t run_ctx;          <span class="c">// 运行期：WR 链、时间戳数组、计数器</span>
+    ...
+} perftest_context_t;
+</pre>
+<p>它是<strong>"跑完一场测试所需全部东西的容器"</strong>：一端连接（urma_ctx）、一堆队列、收发 buffer、
+本地/远端段、GPU 描述符、运行期统计上下文。整个 main 流程在 create_ctx 里把它填满，run 阶段读它，destroy_ctx 里倒序释放。</p>
+
+<h4>关系一句话总结</h4>
+<blockquote>
+  <strong>perftest_config_t 定"策略"</strong>（想怎么测）→
+  <strong>urma_context_t 管"连接"</strong>（对一块 URMA 硬件的句柄）→
+  <strong>perftest_context_t 管"资源"</strong>（一场测试的全部运行时状态，内嵌 urma_ctx）。
+  三者的关系：perftest_context 包含 urma_context；两者都由 perftest_config 驱动的流程创建。
+</blockquote>
+
+</div>
+</details>
+
+</main>
+</div>
+</body>
+</html>

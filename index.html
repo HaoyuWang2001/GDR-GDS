@@ -2,11 +2,150 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="refresh" content="0; url=gdr_gds.html">
-<title>GPUDirect RDMA (GDR) 与 GPUDirect Storage (GDS) 技术文档</title>
-<script>window.location.replace('gdr_gds.html');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDR-GDS 技术文档导航</title>
+<style>
+:root {
+    --bg: #f8f9fb;
+    --text: #2c2c2c;
+    --muted: #5a6270;
+    --border: #dde1e6;
+    --card-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    --gdr-accent: #1b5e20;
+    --ub-accent: #0d47a1;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC",
+                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 15px;
+}
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+}
+
+h1 {
+    font-size: 26px;
+    color: #111;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 40px;
+}
+
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 26px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    border-left: 5px solid var(--border);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.card.gdr { border-left-color: var(--gdr-accent); }
+.card.ub  { border-left-color: var(--ub-accent); }
+
+.card .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card .tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.card.gdr .tag { background: var(--gdr-accent); }
+.card.ub  .tag { background: var(--ub-accent); }
+
+.card .card-desc {
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.7;
+}
+
+.card .card-sections {
+    margin-top: 8px;
+    font-size: 12.5px;
+    color: #888;
+}
+
+.card .card-sections span {
+    margin-right: 10px;
+}
+
+footer {
+    margin-top: 48px;
+    text-align: center;
+    color: #999;
+    font-size: 12.5px;
+}
+</style>
 </head>
 <body>
-<p>正在跳转至 <a href="gdr_gds.html">gdr_gds.html</a>…</p>
+<div class="container">
+    <h1>GDR-GDS 技术文档导航</h1>
+    <p class="subtitle">选择一份文档开始阅读</p>
+
+    <div class="card-list">
+        <a class="card gdr" href="gdr_gds.html">
+            <div class="card-title">GPUDirect RDMA 与 Storage 技术文档 <span class="tag">GDR / GDS</span></div>
+            <div class="card-desc">NVIDIA GPUDirect 技术的系统性参考：背景动机、技术演进、软件生态、控制面与数据面路径、GDR 与 GDS 技术细节与全生命周期实例、对比与平台拓扑、部署要点、术语释义及 Phoenix 论文精讲。</div>
+            <div class="card-sections">
+                <span>共 16 章</span>
+                <span>8 张插图</span>
+                <span>含术语表与参考链接</span>
+            </div>
+        </a>
+
+        <a class="card ub" href="gdr-ub.html">
+            <div class="card-title">灵衢总线 UB-GDR 路径技术文档 <span class="tag">UB-GDR</span></div>
+            <div class="card-desc">面向灵衢总线的用户态 GPUDirect RDMA 路径专题：项目背景、总体流程概述、调用链路概述与常见问题解答。</div>
+            <div class="card-sections">
+                <span>共 4 章</span>
+                <span>含调用链路与 Q&amp;A</span>
+            </div>
+        </a>
+    </div>
+
+    <footer>GDR-GDS 知识体系</footer>
+</div>
 </body>
 </html>
