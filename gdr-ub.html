@@ -297,30 +297,72 @@ details[open] summary { border-bottom: 1px dashed var(--border); margin-bottom: 
 
 <p>作用：把 GPU 显存（或 host 内存）变成"两端都知道地址、内核已 pin 好页、已建好 IOMMU 映射"的 URMA 段。</p>
 
+<p>本流程分为两段：<strong>A1 申请路径</strong>（分配显存/内存，拿到 VA）→ <strong>A2 注册路径</strong>（把 VA 登记到 URMA 内核、pin 页、建映射、通知对端）。</p>
+
+<h4>A1. 显存/内存申请路径（一次性分配，perftest 二进制 → cuMemAlloc）</h4>
+
 <pre>
-<span class="c">// ---- 用户态 ----</span>
-urma_perftest                     <span class="c">// 二进制入口</span>
-  │  cuMemAlloc()                 <span class="c">→ libcuda.so：分配 GPU 显存，得到 GPU VA</span>
-  │  urma_register_seg()          <span class="c">→ liburma.so：注册段入口</span>
-  │    └─ provider register_seg   <span class="c">→ liburma-udma.so：udma_u_register_seg</span>
-  │         └─ 若 is_gpu_seg=1     <span class="c">→ 打包 GPU 标记 ucmd 进 udata 私有通道</span>
-  │  ioctl(/dev/uburma)           <span class="c">→ 陷入内核</span>
-
-<span class="c">// ---- 内核态 ----</span>
-uburma.ko                         <span class="c">// ioctl 分发</span>
-  └─ ubcore.ko                    <span class="c">// 段注册核心，透传 udata</span>
-      └─ udma.ko                  <span class="c">// udma_register_seg：识别 GPU 标记</span>
-          ├─ udma_nv_p2p_bridge.ko  <span class="c">// 调 nvidia_p2p_get_pages() pin 显存页</span>
-          │    └─ nvidia.ko         <span class="c">// 返回 GPU 物理页（PCIe 可路由地址）</span>
-          └─ ummu-core.ko          <span class="c">// ummu_sva_matt_map_phys_sg() 建 IOMMU 映射</span>
-
-<span class="c">// ---- 控制面交换 ----</span>
-exchange_seg_info()                <span class="c">// 经 TCP 把本端段信息（含 VA）发给对端</span>
-  └─ 对端 import_seg()             <span class="c">// 凭 token 导入远端段，后续可直接寻址对端显存</span>
+create_simplex_ctx                      perftest_resources.c:2052  [urma_perftest 二进制] 建链总入口
+  └─ register_mem(ctx, cfg)             perftest_resources.c:2063  [urma_perftest 二进制] 分配 buffer + 注册段
+      └─ perftest_gpu_alloc_buffer()    perftest_gpu_alloc.c:374   [urma_perftest 二进制] 按 --gpu-mode 选分配策略
+          └─ try_alloc_peermem()        perftest_gpu_alloc.c:400   [urma_perftest 二进制] PEERMEM 策略入口
+              └─ perftest_cuda_mem_alloc() perftest_cuda_loader.c:442 [urma_perftest 二进制] 封装 CUDA 调用
+                  └─ g_cuMemAlloc()     perftest_cuda_loader.c:468 [urma_perftest 二进制] dlsym 调用 libcuda.so
+                      └─ cuMemAlloc_v2()  libcuda.so               分配 GPU 显存，返回 GPU VA (dptr)
 </pre>
 
-<p>关键接口：<code>urma_register_seg()</code>（用户态）、<code>urma_cmd_register_seg</code>（ioctl）、
-<code>nvidia_p2p_get_pages()</code>（内核，经 bridge）、<code>ummu_sva_matt_map_phys_sg()</code>（内核，GDR 新增）。</p>
+<h4>A2. 内存注册路径（一次性注册，perftest 经 .so → ioctl → .ko → nvidia.ko）</h4>
+
+<pre>
+<span class="c">// ── 用户态 .so 层 ──</span>
+urma_register_seg()                    perftest_resources.c:928   [urma_perftest 二进制] 注册段入口，带 is_gpu_seg
+  └─ urma_register_seg()               urma_cp_api.c:2763         [liburma.so] 校验+自动分配 token_id
+      └─ ops->register_seg()           urma_cp_api.c:2785         [liburma.so] 函数指针，跳到 hw provider
+          └─ udma_u_register_seg()     udma_u_segment.c:145       [liburma-udma.so] provider 注册实现
+              ├─ udma_u_grant_segment() udma_u_segment.c:164     [liburma-udma.so] UMMU grant
+              │   └─ ummu_grant()       udma_u_segment.c:90       [libummu.so] 建 SVA 授权
+              └─ udma_exec_register_seg_cmd() udma_u_segment.c:171 [liburma-udma.so] 打包 ucmd
+                  ├─ ucmd.is_gpu_seg=1  udma_u_segment.c:108     [liburma-udma.so] GPU 标记塞进 udata 私有通道
+                  └─ urma_cmd_register_seg() urma_cmd.c:240       [liburma.so] 填 ioctl 参数包
+                      └─ urma_ioctl_register_seg() urma_cmd_tlv.c:116 [liburma.so] TLV ioctl 系统调用
+
+<span class="c">// ── 内核边界 (ioctl /dev/uburma) ──</span>
+
+<span class="c">// ── 内核 .ko 层 ──</span>
+uburma_cmd_register_seg()              uburma_cmd.c:232           [uburma.ko] ioctl 分发
+  └─ ubcore_register_seg()             uburma_cmd.c:268           [uburma.ko] 调 in-tree ubcore 核心
+      └─ ubcore_register_seg()         ubcore_segment.c:174       [ubcore.ko (in-tree)] 校验+可能分配 token_id
+          └─ dev->ops->register_seg()  ubcore_segment.c:214       [ubcore.ko (in-tree)] 回调 HW driver
+              └─ udma_register_seg()   udma_segment.c:719         [udma.ko (OOT)] 读 GPU 标记+分流
+                  └─ udma_pin_pages_and_ioummu_map() udma_segment.c:752→586 [udma.ko (OOT)] GPU pin + IOMMU map
+
+<span class="c">//  ┌─ [GPU pin 子路径] ─────────────────────────────────────────────</span>
+                  └─ udma_gpu_pin_seg_pages()  udma_segment.c:609  [udma.ko (OOT)]
+                      (udma_gpu_p2p.c:280)
+                      └─ ops->get_pages()      udma_gpu_p2p.c:320  [udma.ko (OOT)] 函数指针，由 bridge 注册
+                          │
+                          │ ※ 这个跳转不是静态符号链接，而是 bridge 在 module_init()
+                          │ 时调 udma_register_gpu_p2p_ops() 注册的回调函数指针。
+                          │ 加载顺序: nvidia.ko → udma.ko → udma_nv_p2p_bridge.ko
+                          │
+                          └─ udma_nv_p2p_bridge_get_pages()  bridge.c:43  [udma_nv_p2p_bridge.ko (OOT)]
+                              └─ nvidia_p2p_get_pages()      bridge.c:146 [udma_nv_p2p_bridge.ko (OOT)]
+                                  └─ (nvidia.ko 内部)                      [nvidia.ko] 返回 GPU 物理页 PA
+                  └─ udma_gpu_build_sg_table() udma_gpu_p2p.c:352 [udma.ko (OOT)] 本地拼 SG 表(PA→sg_dma_address)
+
+<span class="c">//  └─ [IOMMU 映射子路径] ────────────────────────────────────────────</span>
+                  udma_ioummu_remote_map()    udma_segment.c:616  [udma.ko (OOT)]
+                    (udma_segment.c:385)
+                    └─ udma_ioummu_map_phys_sg() udma_segment.c:390 [udma.ko (OOT)]
+                        (udma_common.c:266)
+                        └─ ummu_sva_matt_map_phys_sg()  udma_common.c:287 [udma.ko (OOT)]
+                            └─ (ummu-core.ko 内部)       core_matt.c:417   [ummu-core.ko (in-tree)] 建 IOVA→GPU HPA 映射
+
+<span class="c">// ── 控制面交换 ──</span>
+exchange_seg_info()                    perftest_resources.c:966   [urma_perftest 二进制] 经 TCP 交换段信息
+  └─ sock_sync_data()                                            [urma_perftest 二进制] 本地 urma_seg_t(含 VA) ↔ 对端
+      └─ 对端 urma_import_seg()       perftest_resources.c:1371  [urma_perftest 二进制] 凭 token 导入远端段
+</pre>
 
 <h3 id="sec3-b">B. 测试循环执行期流程</h3>
 
