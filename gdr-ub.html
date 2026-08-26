@@ -212,6 +212,53 @@ details[open] summary { border-bottom: 1px dashed var(--border); margin-bottom: 
 </tbody>
 </table>
 
+<h3>关键技术</h3>
+
+<p>在内核态 udma 驱动中新增 GPU 段注册分流逻辑，通过私有通道接收用户态 GPU 标记；为解决内核模块许可证兼容问题，单独切出桥接模块，以回调注册方式调用 nvidia.ko 的 nvidia_p2p 系列接口，成功通过用户态 va 获取 gpu hbm 物理页 pa 表，在本地拼接为 sg 表后透传至自行修改的 kernel iommu(ummu)模块（新增 phys_sg 映射接口），建立 urma 侧 va 至 gpu 侧 pa 的映射，打通进程通过 urma 可直接读写远端 gpu 的 hbm 显存路径。</p>
+
+<h3>代码改动概览</h3>
+
+<table>
+<thead><tr><th>组件</th><th>改动量</th><th>实现功能</th></tr></thead>
+<tbody>
+<tr>
+  <td>ummu-core（内核 in-tree）</td>
+  <td>~180 行</td>
+  <td>新增 GDR 专用 IOMMU 映射接口，接收 GPU 物理页 SG 表，构建 URMA 侧 VA 至 GPU 侧 PA 的地址映射</td>
+</tr>
+<tr>
+  <td>udma.ko（OOT）</td>
+  <td>~1100 行</td>
+  <td>通过回调注册机制向下调用 bridge ko，从而 pin 住 GPU 物理页并构建 SG 表，进而将 SG 表传递至 IOMMU 完成地址映射</td>
+</tr>
+<tr>
+  <td>udma_nv_p2p_bridge.ko（全新）</td>
+  <td>~330 行</td>
+  <td>桥接模块，回调模式调 nvidia_p2p 接口 pin 显存页并获取 GPU 物理页表 PA</td>
+</tr>
+<tr>
+  <td>ubcore.ko + uburma.ko</td>
+  <td>~3 行</td>
+  <td>接收用户态 ioctl 请求，将 GPU 标记经私有通道透传至下层 HW 驱动，不做解析</td>
+</tr>
+<tr>
+  <td>liburma.so</td>
+  <td>~80 行</td>
+  <td>段配置结构体新增 GPU 标记字段，供用户态标记某段为 GPU 显存</td>
+</tr>
+<tr>
+  <td>liburma-udma.so</td>
+  <td>~15 行</td>
+  <td>将 GPU 标记打包为 ucmd 塞入 ioctl 私有通道，透传给内核 udma 驱动识别</td>
+</tr>
+<tr>
+  <td>urma_perftest</td>
+  <td>~3700 行</td>
+  <td>针对接入 urma 测试程序增加 GPU 路径，可动态加载 CUDA/gdrcopy 库，申请 GPU 显存 VA，完成带宽、时延测试</td>
+</tr>
+</tbody>
+</table>
+
 <blockquote>
   一句话：<strong>内核给 GDR 铺 IOMMU 路（kernel 仓库）→ udma 系列 ko 在驱动层把 GPU 显存 pin 住并建映射
   （urma_driver_netlab 仓库）→ 用户态 lib + perftest 发起显存直达的读写测试（UMDK_tool_netlab 仓库）</strong>。
@@ -499,6 +546,104 @@ typedef struct perftest_context {
   <strong>urma_context_t 管"连接"</strong>（对一块 URMA 硬件的句柄）→
   <strong>perftest_context_t 管"资源"</strong>（一场测试的全部运行时状态，内嵌 urma_ctx）。
   三者的关系：perftest_context 包含 urma_context；两者都由 perftest_config 驱动的流程创建。
+</blockquote>
+
+</div>
+</details>
+
+<details id="q3">
+<summary>Q3：perftest 运行流程中，jetty 是否一直打满？client 是否通过 poll 字节感知到对端更改后才发送下一次？</summary>
+<div class="qa-answer">
+
+<p>对于 <strong>延迟测试（write_lat）</strong>，jetty <strong>不是一直打满</strong>，且 client <strong>确实通过 poll 字节感知到对端更改后才发送下一次</strong>。</p>
+
+<p>从 <code>run_write_lat_simplex</code>（<code>perftest_run_test.c:498</code>）的热循环可以看出，这是一个<strong>严格 ping-pong 协议</strong>：</p>
+
+<pre>
+每轮迭代:
+  C1 write_lat_wait_flag(poll_buf)  <span class="c">// 阻塞等待对端 flag 到达（写过来了）</span>
+  C2 write_lat_store_flag(post_buf) + urma_post_jfs_wr()  <span class="c">// 写 flag + 发 WRITE</span>
+  C3 poll_jfc_until_expected_cqe()  <span class="c">// 等 JFC 完成队列</span>
+</pre>
+
+<p>三个计数器 <code>scnt/ccnt/rcnt</code> 同步增长——<strong>只有收到对端的回包 flag（C1 通过），才发出下一次 WRITE（C2）</strong>。这意味着：</p>
+<ul>
+  <li><strong>同一时刻只有一条 WRITE 在飞行</strong>，没有流水线（pipelining）</li>
+  <li>jetty 的发送队列深度（<code>jfs_post_list</code>，默认 1）未被充分利用，大部分时间在等对端回包</li>
+  <li>这是<strong>延迟测试的刻意设计</strong>：你要测的是单条消息往返延迟，不是流水线吞吐</li>
+</ul>
+
+<p>对于 <strong>带宽测试（write_bw）</strong>，情况不同——带宽测试会使用多个 jetty 并发、更深的后投队列，让发送端始终有数据在飞行，打满链路带宽。但延迟测试追求的<strong>是"干净的单次往返时间"</strong>，一旦流水线化，前一条未完成时后一条的效果就混入了，测不准。</p>
+
+<blockquote>
+  一句话：<strong>write_lat 是"发一条 → 等回包 → 再发一条"的严格乒乓，jetty 空闲等对端（≈ 半双工）；write_bw 则是多 jetty 流水线打满（≈ 全双工），两者对 jetty 的利用模式截然相反。</strong>
+</blockquote>
+
+</div>
+</details>
+
+<details id="q4">
+<summary>Q4：GDR-DIRECT 路径不通是因为 V100 硬件的限制还是其他原因？GDR-DIRECT 会比 PEERMEM 性能更好吗？</summary>
+<div class="qa-answer">
+
+<h4>GDR-DIRECT 不通的原因：不是硬件限制，是 UABI 尚未扩展</h4>
+
+<p>从代码分析，<code>--gpu-mode=direct</code> 的 <code>try_alloc_gdr</code>（<code>perftest_gpu_alloc.c:158</code>）确实通过 <code>cuMemGetHandleForAddressRange</code>（CUDA 12.2+）成功拿到了 dma-buf fd。但问题出在<strong>这个 fd 没有传到内核</strong>：</p>
+
+<ul>
+  <li><code>urma_cmd_register_seg_t</code>（<code>urma_cmd.h:182</code>）的 ioctl 数据结构中，<code>dmabuf_fd</code> 字段<strong>仅存在于注释里</strong>，不是真正的结构体成员</li>
+  <li><code>urma_cmd_register_seg()</code>（<code>urma_cmd.c:240</code>）打包 ioctl 参数时，只填了 <code>va/len/token/flag</code>，<strong>没有传 dmabuf_fd</strong></li>
+  <li>内核侧 <code>uburma_cmd_register_seg</code>（<code>uburma_cmd.c:232</code>）和 <code>ubcore_register_seg</code> 也<strong>没有接收 dma-buf fd 的路径</strong>，只走 <code>nvidia_p2p_get_pages</code></li>
+</ul>
+
+<p>代码注释明确说（<code>urma_types.h:1000-1009</code>）："<strong>当前不真正加，因为内核侧 uburma_cmd_register_seg_t 必须先扩展</strong>"。这是一个<strong>UABI（用户态-内核态 ABI）同步问题</strong>，不是 V100 硬件不支持。Linux 内核的 dma-buf 框架（<code>dma_buf_get/dma_buf_attach/dma_buf_map_attachment</code>）已经成熟，NVIDIA 驱动也支持 dma-buf 导出（<code>cuMemGetHandleForAddressRange</code> 就是证据）。真正缺的是：</p>
+
+<ol>
+  <li>用户态 ioctl 结构体 <code>urma_cmd_register_seg_t</code> 增加 <code>dmabuf_fd</code> 字段</li>
+  <li>内核 <code>uburma_cmd_register_seg_t</code> 同步扩展</li>
+  <li>内核 <code>uburma_cmd_register_seg</code> 的分发逻辑：若 <code>dmabuf_fd >= 0</code> 则走 <code>ubcore_register_seg_dmabuf</code> 而非 <code>ubcore_register_seg</code></li>
+  <li><code>ubcore_register_seg_dmabuf</code> 实现：<code>dma_buf_get(fd) → dma_buf_attach(&nic->dev) → dma_buf_map_attachment</code> 拿到 SG 表</li>
+</ol>
+
+<p>这是一套跨 <strong>UMDK（用户态）+ kernel（内核 uABI 头）+ ubcore/uburma（内核驱动）</strong> 的协同改动，需要同步 PR 才能落地，工作量不小，不只是改一行代码。</p>
+
+<h4>GDR-DIRECT 会比 PEERMEM 性能更好吗？</h4>
+
+<p>理论上，<strong>GDR-DIRECT（dma-buf）可能略优于 PEERMEM</strong>，但差异可能不大，原因如下：</p>
+
+<table>
+<thead><tr><th>对比维度</th><th>GDR-DIRECT (dma-buf)</th><th>PEERMEM (nvidia_p2p)</th></tr></thead>
+<tbody>
+<tr>
+  <td>GPU 页获取方式</td>
+  <td><code>dma_buf_map_attachment</code> → Linux 标准 DMA API</td>
+  <td><code>nvidia_p2p_get_pages</code> → NVIDIA 私有 API</td>
+</tr>
+<tr>
+  <td>路径长度</td>
+  <td>dma-buf 框架层数较少，直接走 VFIO/DMA 子系统</td>
+  <td>经 NVIDIA 驱动内部 peermem 路径，多一层封装</td>
+</tr>
+<tr>
+  <td>标准化程度</td>
+  <td>Linux 通用，跨厂商（AMD/Intel/NVIDIA 都支持 dma-buf）</td>
+  <td>NVIDIA 私有，仅 NVIDIA GPU 可用</td>
+</tr>
+<tr>
+  <td>性能预期</td>
+  <td>可能略优（更少的驱动内封装跳转）</td>
+  <td>成熟稳定，实际差距不大</td>
+</tr>
+<tr>
+  <td>当前状态</td>
+  <td>未打通（UABI 未扩展）</td>
+  <td><span style="color:#2e7d32;font-weight:600">已打通</span></td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  结论：<strong>GDR-DIRECT 不通不是硬件原因，是 UABI 同步尚未完成。打通后理论上性能可能略优于 PEERMEM，但实际差距预期不大——PEERMEM 路径已经足够成熟稳定。优先用 PEERMEM 验证 GDR 功能，dma-buf 路径可作为后续优化方向。</strong>
 </blockquote>
 
 </div>
