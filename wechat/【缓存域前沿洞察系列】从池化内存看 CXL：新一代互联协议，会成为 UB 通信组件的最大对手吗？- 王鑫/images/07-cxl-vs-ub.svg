@@ -1,0 +1,62 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" font-family="Microsoft YaHei, PingFang SC, sans-serif">
+  <rect width="1200" height="675" fill="#F8FAFC"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#2563EB"/>
+  <text x="600" y="70" text-anchor="middle" font-size="34" font-weight="bold" fill="#0F2A5C">CXL vs UB：六个维度看差异</text>
+  <text x="600" y="104" text-anchor="middle" font-size="18" fill="#64748B">一个主攻"内存自由"，一个主攻"算力聚沙成塔"</text>
+
+  <!-- header -->
+  <rect x="90" y="128" width="180" height="62" fill="#0F2A5C"/>
+  <rect x="270" y="128" width="420" height="62" fill="#2563EB"/>
+  <rect x="690" y="128" width="420" height="62" fill="#EA580C"/>
+  <text x="180" y="167" text-anchor="middle" font-size="21" font-weight="bold" fill="#FFFFFF">维度</text>
+  <text x="480" y="167" text-anchor="middle" font-size="23" font-weight="bold" fill="#FFFFFF">CXL</text>
+  <text x="900" y="167" text-anchor="middle" font-size="23" font-weight="bold" fill="#FFFFFF">UB（灵衢）</text>
+
+  <!-- rows -->
+  <g font-size="19">
+    <rect x="90" y="190" width="180" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="270" y="190" width="420" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="690" y="190" width="420" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="180" y="232" text-anchor="middle" font-weight="bold" fill="#0F2A5C">定位</text>
+    <text x="480" y="232" text-anchor="middle" fill="#334155">内存扩展与池化</text>
+    <text x="900" y="232" text-anchor="middle" fill="#334155">超节点全互联</text>
+
+    <rect x="90" y="260" width="180" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="270" y="260" width="420" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="690" y="260" width="420" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <text x="180" y="302" text-anchor="middle" font-weight="bold" fill="#0F2A5C">互联范围</text>
+    <text x="480" y="302" text-anchor="middle" fill="#334155">节点内 ~ 机柜级</text>
+    <text x="900" y="302" text-anchor="middle" fill="#334155">数百至上万卡超节点</text>
+
+    <rect x="90" y="330" width="180" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="270" y="330" width="420" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="690" y="330" width="420" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="180" y="372" text-anchor="middle" font-weight="bold" fill="#0F2A5C">核心能力</text>
+    <text x="480" y="372" text-anchor="middle" fill="#334155">内存语义 + 缓存一致性</text>
+    <text x="900" y="372" text-anchor="middle" fill="#334155">全对等互联 · 微秒级时延</text>
+
+    <rect x="90" y="400" width="180" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="270" y="400" width="420" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="690" y="400" width="420" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <text x="180" y="442" text-anchor="middle" font-weight="bold" fill="#0F2A5C">内存池化</text>
+    <text x="480" y="442" text-anchor="middle" fill="#334155">先发优势，已落地（机柜级）</text>
+    <text x="900" y="442" text-anchor="middle" fill="#334155">超节点级，规模天花板更高</text>
+
+    <rect x="90" y="470" width="180" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="270" y="470" width="420" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="690" y="470" width="420" height="70" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="180" y="512" text-anchor="middle" font-weight="bold" fill="#0F2A5C">生态基础</text>
+    <text x="480" y="512" text-anchor="middle" fill="#334155">PCIe生态，零改造接入</text>
+    <text x="900" y="512" text-anchor="middle" fill="#334155">全栈协同设计，2.0开源</text>
+
+    <rect x="90" y="540" width="180" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="270" y="540" width="420" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <rect x="690" y="540" width="420" height="70" fill="#F1F5F9" stroke="#E2E8F0"/>
+    <text x="180" y="582" text-anchor="middle" font-weight="bold" fill="#0F2A5C">主导阵营</text>
+    <text x="480" y="582" text-anchor="middle" fill="#334155">Intel牵头 · 150+联盟成员</text>
+    <text x="900" y="582" text-anchor="middle" fill="#334155">华为主导 · 开放标准</text>
+  </g>
+
+  <rect x="90" y="626" width="1020" height="40" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="600" y="653" text-anchor="middle" font-size="17" fill="#475569">交汇点在"池化内存"：生态成熟度，CXL领先；规模与带宽上限，UB占优</text>
+</svg>

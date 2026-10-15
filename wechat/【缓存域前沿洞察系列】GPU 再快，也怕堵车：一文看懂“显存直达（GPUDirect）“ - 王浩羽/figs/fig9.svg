@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="700" viewBox="0 0 750 700">
+<defs>    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="agb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#1976D2"/>
+    </marker>
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00838F"/>
+    </marker>
+    <marker id="abb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#00838F"/>
+    </marker>
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker></defs>
+<rect width="750" height="700" fill="#FAFAFA"/>
+<rect x="20" y="14" width="112" height="30" rx="15" ry="15" fill="#0D47A1" stroke="#0D47A1" stroke-width="1"/>
+<text x='76' y='34' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#FFFFFF' text-anchor='middle' font-weight="bold">GPUDirect</text>
+<text x='375.0' y='46' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='26' fill='#0D47A1' text-anchor='middle' font-weight="bold">直达显存，到底有多值？</text>
+<circle cx="170" cy="172" r="62" fill="#E3F2FD" stroke="#1565C0" stroke-width="3"/>
+<text x='170' y='166' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='30' fill='#1976D2' text-anchor='middle' font-weight="bold">更快</text>
+<text x='170' y='200' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#1976D2' text-anchor='middle'>带宽翻倍级</text>
+<text x='170' y='266' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='middle'>少一次搬运、少一道窄门</text>
+<circle cx="375" cy="172" r="62" fill="#E0F2F1" stroke="#00838F" stroke-width="3"/>
+<text x='375' y='166' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='30' fill='#00838F' text-anchor='middle' font-weight="bold">更省</text>
+<text x='375' y='200' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#00838F' text-anchor='middle'>CPU 归位</text>
+<text x='375' y='266' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='middle'>卸下搬运活，专心调度</text>
+<circle cx="580" cy="172" r="62" fill="#FFF3E0" stroke="#FB8C00" stroke-width="3"/>
+<text x='580' y='166' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='30' fill='#E65100' text-anchor='middle' font-weight="bold">更稳</text>
+<text x='580' y='200' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#E65100' text-anchor='middle'>延迟平稳</text>
+<text x='580' y='266' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='middle'>不排队过门岗，可预期</text>
+<line x1="75" y1="300" x2="675" y2="300" stroke="#78909C" stroke-width="1" stroke-dasharray="6,4"/>
+<rect x="60" y="330" width="200" height="230" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<rect x="78" y="358" width="50" height="40" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+<text x='103' y='383' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='11' fill='#1976D2' text-anchor='middle' font-weight="bold">GPU</text>
+<line x1="128" y1="378" x2="136" y2="378" stroke="#1976D2" stroke-width="2" marker-end="url(#ag)"/>
+<rect x="136" y="358" width="50" height="40" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+<text x='161' y='383' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='11' fill='#1976D2' text-anchor='middle' font-weight="bold">GPU</text>
+<line x1="186" y1="378" x2="194" y2="378" stroke="#1976D2" stroke-width="2" marker-end="url(#ag)"/>
+<rect x="194" y="358" width="50" height="40" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+<text x='219' y='383' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='11' fill='#1976D2' text-anchor='middle' font-weight="bold">GPU</text>
+<text x='160' y='448' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='18' fill='#333333' text-anchor='middle' font-weight="bold">分布式训练</text>
+<text x='160' y='478' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle'>多机 GPU 高速互换数据</text>
+<text x='160' y='504' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle'>大模型训练提速</text>
+<rect x="290" y="330" width="200" height="230" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<rect x="314" y="362" width="60" height="34" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<text x='344' y='384' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='12' fill='#333333' text-anchor='middle'>模型</text>
+<line x1="376" y1="379" x2="404" y2="379" stroke="#1976D2" stroke-width="3" marker-end="url(#ag)"/>
+<rect x="406" y="362" width="60" height="34" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+<text x='436' y='384' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">显存</text>
+<text x='390' y='448' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='18' fill='#333333' text-anchor='middle' font-weight="bold">推理服务</text>
+<text x='390' y='478' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle'>模型缓存秒级进显存</text>
+<text x='390' y='504' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle'>用户少等一拍</text>
+<rect x="520" y="330" width="200" height="230" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<rect x="544" y="362" width="60" height="34" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.5"/>
+<text x='574' y='384' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='12' fill='#1976D2' text-anchor='middle' font-weight="bold">显存</text>
+<line x1="606" y1="379" x2="634" y2="379" stroke="#1976D2" stroke-width="3" marker-end="url(#ag)"/>
+<circle cx="652" cy="379" r="20" fill="#FFFFFF" stroke="#78909C" stroke-width="2"/>
+<circle cx="652" cy="379" r="6" fill="#78909C"/>
+<text x='620' y='448' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='18' fill='#333333' text-anchor='middle' font-weight="bold">存档读写</text>
+<text x='620' y='478' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle'>训练快照直达硬盘</text>
+<text x='620' y='504' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle'>存取不再排队</text>
+<rect x="65.0" y="596" width="620" height="56" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='375.0' y='630' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='17' fill='#333333' text-anchor='middle' font-weight="bold">无论传统网络，还是超节点总线——消灭中转，收益都成立</text>
+</svg>

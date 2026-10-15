@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="830" viewBox="0 0 750 830">
+<defs>    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="agb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#1976D2"/>
+    </marker>
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00838F"/>
+    </marker>
+    <marker id="abb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#00838F"/>
+    </marker>
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker></defs>
+<rect width="750" height="830" fill="#FAFAFA"/>
+<rect x="20" y="14" width="112" height="30" rx="15" ry="15" fill="#0D47A1" stroke="#0D47A1" stroke-width="1"/>
+<text x='76' y='34' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#FFFFFF' text-anchor='middle' font-weight="bold">GPUDirect</text>
+<text x='375.0' y='46' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='26' fill='#0D47A1' text-anchor='middle' font-weight="bold">GPUDirect 家族：条条大路通显存</text>
+<rect x="160" y="84" width="430" height="66" rx="8" ry="8" fill="#ECEFF1" stroke="#78909C" stroke-width="2.5"/>
+<text x='375' y='124' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='20' fill='#333333' text-anchor='middle' font-weight="bold">GPU 显存（工厂的仓库）</text>
+<line x1="195" y1="150" x2="195" y2="200" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="555" y1="150" x2="555" y2="200" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="195" y1="470" x2="195" y2="500" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="555" y1="470" x2="555" y2="500" stroke="#78909C" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="45" y="200" width="300" height="270" rx="8" ry="8" fill="#FFFFFF" stroke="#1565C0" stroke-width="3"/>
+<rect x="70" y="236" width="72" height="52" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<text x='106' y='268' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">网卡</text>
+<line x1="148" y1="252" x2="238" y2="252" stroke="#1976D2" stroke-width="3" marker-end="url(#ag)"/>
+<rect x="248" y="236" width="72" height="52" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='284' y='268' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">显存</text>
+<text x='195' y='276' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>跨机器</text>
+<text x='195' y='340' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">GDR · 网络直达</text>
+<text x='195' y='376' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='middle'>跨机器的网卡直接读写显存</text>
+<rect x="115" y="405" width="160" height="36" rx="18.0" ry="18.0" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='195.0' y='428.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#1976D2' text-anchor='middle' font-weight="bold">本文主角</text>
+<rect x="405" y="200" width="300" height="270" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<rect x="430" y="236" width="72" height="52" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<text x='466' y='268' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">硬盘</text>
+<line x1="508" y1="252" x2="598" y2="252" stroke="#1976D2" stroke-width="3" marker-end="url(#ag)"/>
+<rect x="608" y="236" width="72" height="52" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='644' y='268' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">显存</text>
+<text x='555' y='340' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">GDS · 存储直达</text>
+<text x='555' y='376' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='middle'>硬盘数据直接装进显存</text>
+<rect x="475" y="405" width="160" height="36" rx="18.0" ry="18.0" fill="#ECEFF1" stroke="#78909C" stroke-width="1.8"/>
+<text x='555.0' y='428.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">数据装载</text>
+<rect x="45" y="500" width="300" height="270" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<rect x="70" y="536" width="72" height="52" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='106' y='568' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">显存</text>
+<line x1="148" y1="552" x2="238" y2="552" stroke="#1976D2" stroke-width="3" marker-end="url(#ag)"/>
+<line x1="242" y1="574" x2="152" y2="574" stroke="#1976D2" stroke-width="3" marker-end="url(#ag)"/>
+<rect x="248" y="536" width="72" height="52" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='284' y='568' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">显存</text>
+<text x='195' y='598' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>同机</text>
+<text x='195' y='640' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">P2P · 显卡互达</text>
+<text x='195' y='676' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='middle'>同机显卡之间直接互访显存</text>
+<rect x="115" y="705" width="160" height="36" rx="18.0" ry="18.0" fill="#ECEFF1" stroke="#78909C" stroke-width="1.8"/>
+<text x='195.0' y='728.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">同机互通</text>
+<rect x="405" y="500" width="300" height="270" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<rect x="430" y="536" width="72" height="52" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.8"/>
+<text x='466' y='568' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">数据</text>
+<circle cx="555" cy="562" r="28" fill="#FFFDE7" stroke="#FDD835" stroke-width="2.5"/>
+<polygon points="548,550 548,574 568,562" fill="#E65100"/>
+<rect x="608" y="536" width="72" height="52" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='644' y='568' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">GPU</text>
+<text x='555' y='640' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">Async · 自动接力</text>
+<text x='555' y='676' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='middle'>数据一到自动开工，算完自动存盘</text>
+<rect x="475" y="705" width="160" height="36" rx="18.0" ry="18.0" fill="#ECEFF1" stroke="#78909C" stroke-width="1.8"/>
+<text x='555.0' y='728.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle' font-weight="bold">无人值守</text>
+</svg>

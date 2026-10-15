@@ -1,0 +1,59 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" font-family="Microsoft YaHei, PingFang SC, sans-serif">
+  <defs>
+    <marker id="arr8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748B"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#F8FAFC"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#2563EB"/>
+  <text x="600" y="66" text-anchor="middle" font-size="34" font-weight="bold" fill="#0F2A5C">终局推演：竞合共存的分层互联架构</text>
+  <text x="600" y="100" text-anchor="middle" font-size="18" fill="#64748B">各司其职，互相补位 —— AI基础设施的拼图，不止一块</text>
+
+  <!-- layers -->
+  <g>
+    <rect x="90" y="150" width="620" height="112" rx="16" fill="#64748B"/>
+    <text x="130" y="196" font-size="22" font-weight="bold" fill="#FFFFFF">跨集群互联</text>
+    <text x="130" y="230" font-size="17" fill="#E2E8F0">以太网 / RDMA · 数据中心间广域协同</text>
+
+    <rect x="90" y="290" width="620" height="112" rx="16" fill="#EA580C"/>
+    <text x="130" y="336" font-size="22" font-weight="bold" fill="#FFFFFF">超节点互联</text>
+    <text x="130" y="370" font-size="17" fill="#FFEDD5">UB / NVLink · 算力聚沙成塔，通信组件的主舞台</text>
+
+    <rect x="90" y="430" width="620" height="112" rx="16" fill="#2563EB"/>
+    <text x="130" y="476" font-size="22" font-weight="bold" fill="#FFFFFF">节点内扩展</text>
+    <text x="130" y="510" font-size="17" fill="#DBEAFE">CXL · 内存自由流动，池化扩展的主战场</text>
+  </g>
+
+  <!-- vertical arrows -->
+  <g stroke="#64748B" stroke-width="3">
+    <line x1="400" y1="262" x2="400" y2="290" marker-end="url(#arr8)"/>
+    <line x1="400" y1="402" x2="400" y2="430" marker-end="url(#arr8)"/>
+    <line x1="420" y1="290" x2="420" y2="262" marker-end="url(#arr8)"/>
+    <line x1="420" y1="430" x2="420" y2="402" marker-end="url(#arr8)"/>
+  </g>
+  <text x="450" y="282" font-size="14" fill="#64748B">数据上下穿透</text>
+
+  <!-- right timeline card -->
+  <rect x="770" y="150" width="340" height="392" rx="20" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="940" y="196" text-anchor="middle" font-size="22" font-weight="bold" fill="#0F2A5C">竞合三阶段</text>
+
+  <circle cx="820" cy="252" r="10" fill="#059669"/>
+  <text x="845" y="246" font-size="19" font-weight="bold" fill="#334155">短期 · 错位竞争</text>
+  <text x="845" y="274" font-size="15" fill="#64748B">一个管内存，一个管算力</text>
+
+  <circle cx="820" cy="340" r="10" fill="#F97316"/>
+  <text x="845" y="334" font-size="19" font-weight="bold" fill="#334155">中期 · 池化交火</text>
+  <text x="845" y="362" font-size="15" fill="#64748B">内存池选型，采购即站队</text>
+
+  <circle cx="820" cy="428" r="10" fill="#7C3AED"/>
+  <text x="845" y="422" font-size="19" font-weight="bold" fill="#334155">长期 · 走向融合</text>
+  <text x="845" y="450" font-size="15" fill="#64748B">分层架构，各管一段</text>
+
+  <rect x="795" y="480" width="290" height="42" rx="10" fill="#FEF3C7"/>
+  <text x="940" y="508" text-anchor="middle" font-size="15" fill="#92400E">变数：CXL 3.x 内存共享正向上渗透</text>
+
+  <!-- footer -->
+  <rect x="90" y="580" width="1020" height="46" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="600" y="610" text-anchor="middle" font-size="18" fill="#475569">趋势判断："通信变访存" —— 当消息传递变成内存访问，规则正在被改写</text>
+  <text x="1160" y="664" text-anchor="end" font-size="14" fill="#94A3B8">《从池化内存看CXL》配图 8</text>
+</svg>

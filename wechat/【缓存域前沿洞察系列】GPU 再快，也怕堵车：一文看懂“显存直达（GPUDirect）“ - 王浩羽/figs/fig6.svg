@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="870" viewBox="0 0 750 870">
+<defs>    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="agb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#1976D2"/>
+    </marker>
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00838F"/>
+    </marker>
+    <marker id="abb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#00838F"/>
+    </marker>
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker></defs>
+<rect width="750" height="870" fill="#FAFAFA"/>
+<rect x="20" y="14" width="112" height="30" rx="15" ry="15" fill="#0D47A1" stroke="#0D47A1" stroke-width="1"/>
+<text x='76' y='34' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#FFFFFF' text-anchor='middle' font-weight="bold">GPUDirect</text>
+<text x='375.0' y='46' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='26' fill='#0D47A1' text-anchor='middle' font-weight="bold">一份数据的跨机之旅：五跳全是硬件</text>
+<rect x="130" y="95" width="340" height="72" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+<text x='300' y='127' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">A 机 · 显存仓库</text>
+<text x='300' y='151' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>（起点）</text>
+<line x1="300" y1="169" x2="300" y2="232" stroke="#1976D2" stroke-width="4" marker-end="url(#agb)"/>
+<rect x="130" y="235" width="340" height="72" rx="8" ry="8" fill="#ECEFF1" stroke="#78909C" stroke-width="2.5"/>
+<text x='300' y='267' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">A 机 · 网卡货车</text>
+<text x='300' y='291' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>（数据上车）</text>
+<line x1="300" y1="309" x2="300" y2="372" stroke="#1976D2" stroke-width="4" marker-end="url(#agb)"/>
+<rect x="170" y="375" width="260" height="72" rx="8" ry="8" fill="#FFFFFF" stroke="#00838F" stroke-width="2.5"/>
+<text x='300' y='407' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">跨机网络</text>
+<text x='300' y='431' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>（高速干道）</text>
+<line x1="300" y1="449" x2="300" y2="512" stroke="#1976D2" stroke-width="4" marker-end="url(#agb)"/>
+<rect x="130" y="515" width="340" height="72" rx="8" ry="8" fill="#ECEFF1" stroke="#78909C" stroke-width="2.5"/>
+<text x='300' y='547' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">B 机 · 网卡货车</text>
+<text x='300' y='571' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>（收货）</text>
+<line x1="300" y1="589" x2="300" y2="652" stroke="#1976D2" stroke-width="4" marker-end="url(#agb)"/>
+<rect x="130" y="655" width="340" height="72" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+<text x='300' y='687' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='middle' font-weight="bold">B 机 · 显存仓库</text>
+<text x='300' y='711' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>（终点 · 直接写入）</text>
+<rect x="520" y="300" width="190" height="210" rx="8" ry="8" fill="#FFFFFF" stroke="#78909C" stroke-width="1.5"/>
+<text x='615' y='336' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='16' fill='#78909C' text-anchor='middle' font-weight="bold">两端 CPU 内存</text>
+<text x='615' y='364' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='middle'>（物业中转站）</text>
+<text x='615' y='402' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='17' fill='#333333' text-anchor='middle' font-weight="bold">全程未参与</text>
+<text x='615' y='430' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#333333' text-anchor='middle'>数据一次都没落地</text>
+<line x1="472" y1="340" x2="518" y2="340" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="472" y1="470" x2="518" y2="470" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,3"/>
+<rect x="65.0" y="778" width="620" height="56" rx="8" ry="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='375.0' y='812' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='17' fill='#333333' text-anchor='middle' font-weight="bold">五跳全部硬件直运——两端 CPU 内存，一次都没碰</text>
+</svg>

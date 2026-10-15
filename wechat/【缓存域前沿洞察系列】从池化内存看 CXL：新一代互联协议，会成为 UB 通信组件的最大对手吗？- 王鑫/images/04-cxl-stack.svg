@@ -1,0 +1,64 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" font-family="Microsoft YaHei, PingFang SC, sans-serif">
+  <defs>
+    <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#F8FAFC"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#2563EB"/>
+  <text x="600" y="72" text-anchor="middle" font-size="34" font-weight="bold" fill="#0F2A5C">CXL：在PCIe之上叠加的三层协议</text>
+  <text x="600" y="108" text-anchor="middle" font-size="18" fill="#64748B">复用现有机房生态，让CPU"像访问本地内存一样"访问远端内存</text>
+
+  <!-- left: stack -->
+  <text x="375" y="160" text-anchor="middle" font-size="18" font-weight="bold" fill="#475569">协议分层</text>
+
+  <g>
+    <rect x="140" y="180" width="470" height="88" rx="12" fill="#2563EB"/>
+    <text x="165" y="218" font-size="23" font-weight="bold" fill="#FFFFFF">CXL.mem</text>
+    <text x="165" y="248" font-size="16" fill="#DBEAFE">内存语义直达通道：CPU直访远端内存</text>
+  </g>
+  <g>
+    <rect x="140" y="280" width="470" height="88" rx="12" fill="#7C3AED"/>
+    <text x="165" y="318" font-size="23" font-weight="bold" fill="#FFFFFF">CXL.cache</text>
+    <text x="165" y="348" font-size="16" fill="#EDE9FE">缓存一致性：多主机读同一份数据不打架</text>
+  </g>
+  <g>
+    <rect x="140" y="380" width="470" height="88" rx="12" fill="#0D9488"/>
+    <text x="165" y="418" font-size="23" font-weight="bold" fill="#FFFFFF">CXL.io</text>
+    <text x="165" y="448" font-size="16" fill="#CCFBF1">设备发现 / 中断 / 常规IO，兼容PCIe语义</text>
+  </g>
+  <g>
+    <rect x="140" y="486" width="470" height="70" rx="12" fill="#475569"/>
+    <text x="375" y="516" text-anchor="middle" font-size="21" font-weight="bold" fill="#FFFFFF">PCIe 5.0 / 6.0 物理层</text>
+    <text x="375" y="542" text-anchor="middle" font-size="15" fill="#E2E8F0">现有机房、板卡、生态可直接复用</text>
+  </g>
+
+  <!-- right: analogies -->
+  <text x="905" y="160" text-anchor="middle" font-size="18" font-weight="bold" fill="#475569">通俗类比</text>
+
+  <g>
+    <rect x="710" y="186" width="390" height="76" rx="12" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+    <text x="735" y="219" font-size="20" font-weight="bold" fill="#2563EB">高铁直达通道</text>
+    <text x="735" y="246" font-size="15" fill="#64748B">不再绕行"搬家公司"，延迟仅百纳秒级</text>
+  </g>
+  <g>
+    <rect x="710" y="286" width="390" height="76" rx="12" fill="#FFFFFF" stroke="#7C3AED" stroke-width="2"/>
+    <text x="735" y="319" font-size="20" font-weight="bold" fill="#7C3AED">交通规则</text>
+    <text x="735" y="346" font-size="15" fill="#64748B">数据多车并行，谁先谁后讲清楚</text>
+  </g>
+  <g>
+    <rect x="710" y="386" width="390" height="76" rx="12" fill="#FFFFFF" stroke="#0D9488" stroke-width="2"/>
+    <text x="735" y="419" font-size="20" font-weight="bold" fill="#0D9488">普通公路</text>
+    <text x="735" y="446" font-size="15" fill="#64748B">PCIe原有的搬运能力，向下兼容</text>
+  </g>
+
+  <g stroke="#94A3B8" stroke-width="3">
+    <line x1="618" y1="224" x2="700" y2="224" marker-end="url(#arr4)"/>
+    <line x1="618" y1="324" x2="700" y2="324" marker-end="url(#arr4)"/>
+    <line x1="618" y1="424" x2="700" y2="424" marker-end="url(#arr4)"/>
+  </g>
+
+  <rect x="140" y="590" width="960" height="44" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="620" y="619" text-anchor="middle" font-size="17" fill="#475569">Intel牵头 · 联盟成员150+（AMD、谷歌、微软、三星、阿里、华为等） · 2022年发布</text>
+  <text x="1160" y="666" text-anchor="end" font-size="14" fill="#94A3B8">《从池化内存看CXL》配图 4</text>
+</svg>

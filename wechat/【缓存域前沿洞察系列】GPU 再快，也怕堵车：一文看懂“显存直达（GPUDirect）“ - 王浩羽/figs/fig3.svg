@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="790" viewBox="0 0 750 790">
+<defs>    <marker id="ag" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="agb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#1976D2"/>
+    </marker>
+    <marker id="ar" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <marker id="ab" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00838F"/>
+    </marker>
+    <marker id="abb" markerWidth="12" markerHeight="9" refX="10" refY="4.5" orient="auto">
+      <polygon points="0 0, 12 4.5, 0 9" fill="#00838F"/>
+    </marker>
+    <marker id="agr" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker></defs>
+<rect width="750" height="790" fill="#FAFAFA"/>
+<rect x="20" y="14" width="112" height="30" rx="15" ry="15" fill="#0D47A1" stroke="#0D47A1" stroke-width="1"/>
+<text x='76' y='34' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#FFFFFF' text-anchor='middle' font-weight="bold">GPUDirect</text>
+<text x='375.0' y='46' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='26' fill='#0D47A1' text-anchor='middle' font-weight="bold">十余年演进：从专用通道到开放标准</text>
+<line x1="150" y1="110" x2="150" y2="730" stroke="#78909C" stroke-width="4"/>
+<circle cx="150" cy="170" r="13" fill="#64B5F6"/>
+<text x='190' y='164' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='start' font-weight="bold">2012 前后 · 网络直达诞生</text>
+<text x='190' y='194' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='start'>网卡第一次绕过中转，直接读写显存（GDR）</text>
+<rect x="560" y="136" width="130" height="34" rx="17.0" ry="17.0" fill="#E3F2FD" stroke="#64B5F6" stroke-width="1.8"/>
+<text x='625.0' y='158.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#1565C0' text-anchor='middle' font-weight="bold">起点</text>
+<circle cx="150" cy="340" r="13" fill="#1E88E5"/>
+<text x='190' y='334' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='start' font-weight="bold">2020 前后 · 存储直达加入</text>
+<text x='190' y='364' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='start'>硬盘数据不再先落内存，直达显存（GDS）</text>
+<rect x="560" y="306" width="130" height="34" rx="17.0" ry="17.0" fill="#E3F2FD" stroke="#1E88E5" stroke-width="1.8"/>
+<text x='625.0' y='328.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#1565C0' text-anchor='middle' font-weight="bold">扩员</text>
+<circle cx="150" cy="510" r="13" fill="#1565C0"/>
+<text x='190' y='504' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='start' font-weight="bold">近几年 · 自动接力出现</text>
+<text x='190' y='534' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='start'>数据一到自动开工，算完自动存盘（Async）</text>
+<rect x="560" y="476" width="130" height="34" rx="17.0" ry="17.0" fill="#E3F2FD" stroke="#1565C0" stroke-width="1.8"/>
+<text x='625.0' y='498.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#0D47A1' text-anchor='middle' font-weight="bold">联动</text>
+<circle cx="150" cy="680" r="13" fill="#0D47A1"/>
+<text x='190' y='674' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='19' fill='#333333' text-anchor='start' font-weight="bold">现在与未来 · 走向开放标准</text>
+<text x='190' y='704' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='15' fill='#333333' text-anchor='start'>从厂商各自修路，到行业统一标准</text>
+<rect x="560" y="646" width="130" height="34" rx="17.0" ry="17.0" fill="#E3F2FD" stroke="#0D47A1" stroke-width="1.8"/>
+<text x='625.0' y='668.04' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='14' fill='#0D47A1' text-anchor='middle' font-weight="bold">开放</text>
+<text x='190' y='750' font-family='"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif' font-size='13' fill='#78909C' text-anchor='start'>（年份为约数，依官方版本推算）</text>
+</svg>
